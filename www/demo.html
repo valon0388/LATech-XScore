@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cyber Storm</title>
+  <link rel="icon" href="favicon.jpg" />
+
+  <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    setInterval(function() { $("#debug").load("/cgi-bin/debug.cgi"); }, 3000);
+});
+</script>
+
+
+</head>
+
+<body>
+
+  <center>
+    <object width="750" height="600">
+      <param name="movie" value="Scoring.swf">
+      <embed src="Scoring.swf" width="650" height="500">
+      </embed>
+    </object>
+  </center>
+  <center><a href="Scoring.swf">Full Screen</a></center>
+  
+  <hr />
+  
+  <div id="debug"></div>
+  
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!doctype html>
+<html>
+<head>
+
+<title>Cyber Storm</title>
+<link rel="icon" href="/images/favicon.jpg" />
+
+<link type="text/css" href="css/admin.css" rel="stylesheet" />
+
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.custom.min.js"></script>  
+<script type="text/javascript" src="js/jquery.form.js"></script>
+<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+
+</head>
+<body>
+
+<noscript>
+    <h1>Cyber Storm</h1>    
+    <ul>
+        <li><a href="/cgi-bin/events.cgi?teams">Teams</a></li>
+        <li><a href="/cgi-bin/events.cgi?announcements">Announcements</a></li>
+        <li><a href="/cgi-bin/events.cgi?challenges">Challenges</a></li>
+        <li><a href="/cgi-bin/events.cgi?events">Events</a></li>
+    </ul>
+    <hr />
+</noscript>
+
+<div id="header">
+    <a href="index.html"><img src="/images/cyberstorm.jpg" alt="Cyber Storm" border="0" /></a>
+</div>
+
+
+<div id="container">
+
+<div id="tabs">
+    <ul>
+        <li><a href="#summary">Summary</a></li>
+        <li><a href="#scores">Scores</a></li>
+        <li><a href="#announce">Announce</a></li>
+        <li><a href="#challenge">Challenge</a></li>
+        <li><a href="events.html">Event Log</a></li>
+        <li><a href="#view">View</a></li>
+        <li><a href="#help">Help</a></li>
+    </ul>
+
+    <div id="summary">
+	<h2>Summary</h2>
+	
+	<h3>Teams</h3>
+	<div id="teams-table">
+	</div>
+	
+	<hr />
+	
+	<h3>Announcements</h3>
+	<div id="announcements-table">
+	</div>
+	
+	<hr />
+	
+	<h3>Challenges</h3>
+	<div id="challenges-table">
+	</div>
+    </div>
+    <!-- /summary -->
+    
+    <div id="announce">
+	<h3>Make an announcement</h3>
+        <form id="announce-form" action="/cgi-bin/add-event.cgi">
+            <fieldset>
+                <label for="message">Announce</label><br />
+                <textarea rows="3" cols="23" name="message" id="announce-message"></textarea><br />
+                <input type="hidden" name="type" value="announcement" />
+                <button id="announce-button">Announce</button>
+            </fieldset>
+        </form>
+    </div>
+    <!-- /announce -->
+
+    <div id="scores">
+        <form id="scores-form" action="/cgi-bin/add-event.cgi">
+	    <fieldset>
+		<label for="teamName">Team Name</label><br />
+		<select name="teamName">
+		    <option>Bruce Lee</option>
+		    <option>Chuck Norris</option>
+		</select><br />
+		<label for="points">Points</label><br />
+		<input type="number" name="points" id="scores-points" value="" /><br />
+		<label for="message">Message</label><br />
+		<textarea rows="3" cols="23" name="message" id="scores-message"></textarea><br />
+		<input type="hidden" name="eventType" value="Admin" />
+		<input type="hidden" name="type" value="scoringevent" />
+		<button id="scores-button">Update Scores</button>
+	    </fieldset>	    
+        </form>	
+    </div>
+    <!-- /scores -->
+
+    <div id="challenge">
+	<div id="challenge-sections">
+	    <ul>
+		<li><a href="#new-challenge">Create</a></li>
+		<li><a href="end-challenge.html">Close</a></li>
+	    </ul>
+
+	    <div id="new-challenge">
+		<form id="new-challenge-form" action="/cgi-bin/add-event.cgi">
+		    <fieldset>
+			<label for="challengeName">Challenge Name</label><br />
+			<input name="challengeName" id="new-challenge-name" value="" /><br />
+			<label for="points">Points</label><br />
+			<input type="number" name="points" id="new-challenge-points" value="" /><br />
+			<label for="message">Announcement</label><br />
+			<textarea rows="3" cols="23" name="message" id="new-challenge-message"></textarea><br />
+			<input type="hidden" name="type" value="newchallenge" />
+			<button id="new-challenge-button">Start Challenge</button>
+		    </fieldset>
+		</form>
+	    </div>
+	    <!-- /new-challenge -->
+
+	</div>
+	<!-- /challenge-sections -->	
+    </div>
+    <!-- /challenge -->
+    
+    <div id="view">
+	<center style="width: 100%;">
+	    <object width="950" height="800">
+		<param name="movie" value="Scoring.swf">
+		<embed src="Scoring.swf" width="950" height="800">
+		</embed>
+	    </object>
+	</center>
+    </div>
+    <!-- /view -->
+    
+    <!-- help -->
+    <div id="help">
+	<h3>SUMMARY TAB</h3>
+
+<p><b>Description: </b><br/>
+Displays a snapshot of the Teams, Announcements, and Challenges database tables with their various attributes and current entries.</p>
+
+
+
+<h3>SCORES TAB</h3>
+
+<p><b>Description: </b><br/>
+Enables user to manually add points to each team in the database.</p>
+
+<p><b>Instructions: </b><br/>
+1) Choose team name from drop-down menu.<br/>
+2) Enter point amount: integer only for positive points or negative (-) sign before for negative points.<br/>
+3) Enter message to be recorded in database and displayed on the scoring front-end.<br/>
+4) Press 'Update Scores' button to submit to database.</p>
+
+
+
+<h3>ANNOUNCE TAB</h3>
+
+<p><b>Description: </b><br/>
+Enables user to send a message to the display for the teams and audience to view.</p>
+
+<p><b>Instructions: </b><br/>
+1) Enter announcement message in textbox.<br/>
+2) Press 'Announce' button to submit message to database.</p>
+
+
+<h3>CHALLENGE TAB</h3>
+
+<h4>Create Tab</h4>
+
+<p><b>Description: </b><br/>
+Enables user to create a new challenge and inform the teams and audience of the challenge.</p>
+
+<p><b>Instructions: </b><br/>
+1) Enter name of challenge.<br/>
+2) Enter point amount: integer only for positive points or negative (-) sign before for negative points.<br/>
+3) Enter message to be recorded in database and displayed on scoring front-end.<br/>
+4) Press 'Start Challenge' button to submit to database.<br/></p>
+
+<h4>Close Tab</h4>
+
+<p><b>Description: </b><br/>
+Enables user to close an existing challenge and submit the winner to the database.  This message will also be displayed to the teams and audience, and the teams score will be updated accordingly.</p>
+
+<p><b>Instructions: </b><br/>
+1) Choose which challenge to close from the list and press the 'Announce Winner' button.<br/>
+2) Select team winner in drop-down menu.<br/>
+3) Press 'Announce' button to submit.<br/>
+4) Or press 'Cancel' button.<br/></p>
+
+
+<h3>EVENT LOG TAB</h3>
+
+<p><b>Description: </b><br/>
+Displays a snapshot of the Events database table with their various attributes and current entries.</p>
+
+<p><b>Instructions: </b><br/>
+1) Enter text in search bar to search all of the fields in the database table.<br/>
+2) Click the down or up arrow in a field to sort the entries by that specific field.<br/>
+3) Click on the right or left arrow to move through the entries.<br/>
+4) Drop-down menu in the top left allows you to select the number of entries shown per page: 10, 25, 50, or 100.</p>
+
+
+<h3>VIEW TAB</h3>
+
+<p><b>Description: </b><br/>
+Displays the real-time flash front-end for the scoring server.</p>
+
+
+    </div>
+    <!-- /help -->
+    
+
+    
+</div>
+<!-- /tabs -->
+
+<div id="footer">
+    <hr />
+    <a href="http://www.gnu.org/licenses/gpl-3.0.txt"
+       >&copy; 2010 Cyber Storm</a>
+</div>
+<!-- /footer -->
+
+</div>
+<!-- /container -->
+
+<script>
+
+function checkField(field, regexp, errorMsg) {    
+    if (regexp.test(field.val())) {
+        $(".errorBox").remove();
+        field.removeClass("ui-state-error");
+	return true;
+    }
+    field.addClass('ui-state-error');
+    var errbox = $('<div class="errorBox">' + errorMsg + '</div>').insertAfter(field);
+    return false;
+}
+
+var formOptions = {
+    target: "#confirm-dialog",
+    success: function(responseText) {
+	$("#confirm-dialog").dialog({
+	    height: 250,
+	    width: 400,
+	    modal: true,
+	    open: function() {
+		$("#confirm-dialog").parent().find("button").focus();
+	    },
+	    buttons: {
+		Ok: function() {
+		    $(this).dialog('close');
+		}
+	    }
+	});
+    }
+};
+
+function confirmedSubmit(form, msg) {
+// Justin didn't appreciate the confirmations.
+// 
+//     $("#confirm-dialog").text(msg);
+//     $("#confirm-dialog").dialog(
+// 	{
+// 	    height: 250,
+// 	    width: 400,
+// 	    modal: true,
+// 	    buttons: {
+// 		Confirm: function() {
+//*****************************************************
+ 		    $(form).ajaxSubmit(formOptions);
+ 		    $(form).resetForm();
+//*****************************************************
+// 		    $(this).dialog('close');
+// 		},
+// 		Cancel: function() {
+// 		    $(this).dialog('close');
+// 		}
+// 	    },
+// 	    close: function() {
+// 	    }
+// 	});
+}
+
+/****************************************************************************/
+
+$(document).ready(function() {
+		      $("#tabs").tabs();
+		      $("#challenge-sections").tabs();
+
+		      $("#announce-button").button().click(
+			  function() {
+			      var message = $("#announce-message");
+			      if (checkField(message, /./, "Message cannot be empty.")) {
+				  confirmedSubmit($("#announce-form"), "Make this announcement?");
+			      }
+			      return false;
+			  });
+
+		      $("#new-challenge-button").button().click(
+			  function() {	
+			      var name = $("#new-challenge-name");
+			      var points = $("#new-challenge-points");
+			      var message = $("#new-challenge-message");
+			      if (checkField(name, /./, "Challenge must have a name.")
+				  && checkField(points, /^-?[0-9]+$/, "Points must be an integer.")
+				  && checkField(message, /./, "Message cannot be empty."))
+				  confirmedSubmit($("#new-challenge-form"), "Start this challenge?");
+			      
+			      return false;
+			  });
+
+		      $("#scores-button").button().click(
+			  function() {
+			      var points = $("#scores-points");
+			      var message = $("#scores-message");
+			      if (checkField(points, /^-?[0-9]+$/, "Points must be an integer.")
+				  && checkField(message, /./, "Message cannot be empty."))
+				  confirmedSubmit($("#scores-form"), "Update the scores?");
+			      return false;
+			  });
+
+		      $("#teams-table").load("/cgi-bin/events.cgi?teams");
+		      $("#announcements-table").load("/cgi-bin/events.cgi?announcements");
+		      $("#challenges-table").load("/cgi-bin/events.cgi?challenges");
+		  });</script>
+
+<div id="confirm-dialog"></div>
+
+<style>
+.errorBox {
+	background: #c8c8c8;
+        color: red;
+	display: inline;
+	padding: 10px;
+	margin: 5px;
+	position: absolute;
+	z-index: 1000;
+	-moz-border-radius:4px;
+}
+</style>
+
+</body>
+</html>

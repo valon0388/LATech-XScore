@@ -1,0 +1,6 @@
+#!bash
+# Bash completion for xscore commands
+
+complete -W 'score announcement new-challenge end-challenge' xscore-new 
+complete -W 'ftp http mysql ssh' xscore-check
+complete -W 'clear start test web' xscored

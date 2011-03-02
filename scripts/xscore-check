@@ -1,0 +1,86 @@
+#!/usr/bin/env python2.6
+
+''' Usage: %prog [OPTIONS] SERVICE...
+ xscore-check -- Check network services and submit new scoring events.
+
+ List of possible services to check:
+     FTP
+     HTTP
+     MySQL
+     SSH
+     KOTH
+
+ Multiple SERVICE arguments can be specified to include different service 
+ types in the same batch.
+
+ Examples
+
+    xscore-check http                ; Checks all HTTP services
+    xscore-check http http           ; Checks all HTTP services twice
+
+    xscore-check -l ssh              ; Lists all SSH services
+'''
+import os.path, sys
+sys.path.insert(0, os.path.abspath('.'))
+
+import os
+import optparse
+import time
+import random
+
+from xscore import config, scores, checkers
+
+def main():
+    # Process command-line args
+    version = '%prog (xscore) v0.1'
+    parser = optparse.OptionParser(usage=__doc__,
+                                   version=version,
+                                   prog='xscore-check')
+    parser.add_option('-t', '--timeout', dest="timeout", type=int, default=60,
+                      help="Max amount of time to check service "
+                      "[default %default].", metavar="SECS")
+    parser.add_option('-w', '--wait-time', dest="wait_time", type=int, default=5,
+                      help="Time to wait between checking services."
+                      "[default %default].", metavar="SECS")
+    parser.add_option('-l', '--list', dest="list", action="store_true",
+                      help="List the services that would be checked and exit.")
+    opts, args = parser.parse_args()
+    if not args:
+        parser.error("no serice given to check")
+    args = [a.upper() for a in args]
+    to_check = []
+    for service in args:
+        for team in config.teams:
+            if service == 'KOTH':
+                servs = config.koth_nodes
+            else:
+                try:
+                    servs = team[service]
+                except KeyError:
+                    parser.error("unrecognized service: `%s'" % service)
+            to_check.extend([team['name'], service] + list(s) for s in servs)
+
+    random.shuffle(to_check)
+    if opts.list:
+        for service in to_check:
+            print '\t'.join(map(str, service))
+        return
+    for service in to_check:
+        checkers.check(*service, timeout=opts.timeout)
+        time.sleep(opts.wait_time)
+
+#    end_time = time.time() + len(to_check) * opts.timeout + 5
+    # Wait for the children
+    # XXX - Should we wait?
+    try:
+        while 1:
+            os.wait()
+    except OSError as e:
+        # [Errno 10] No child processes
+        if e.errno != 10: raise
+
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        sys.exit(1)

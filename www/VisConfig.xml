@@ -1,0 +1,4 @@
+<Config>
+<NodeServer address="http://10.0.0.1:1337/cgi-bin/NodeReport.cgi"/>
+<AttackServer address="http://10.0.0.1:1337/cgi-bin/AttackReport.cgi"/>
+</Config>

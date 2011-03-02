@@ -1,0 +1,63 @@
+\begin{theindex}
+\def\bigletter#1{{\Large\sffamily#1}\nopagebreak\vspace{1mm}}
+
+  \bigletter A
+  \item add\_announcement() (in module xscore.scores), \hyperpage{10}
+  \item add\_event() (in module xscore.scores), \hyperpage{10}
+
+  \indexspace
+  \bigletter C
+  \item check() (in module xscore.checkers), \hyperpage{10}
+  \item check() (Service method), \hyperpage{9}
+
+  \indexspace
+  \bigletter E
+  \item end\_challenge() (in module xscore.scores), \hyperpage{10}
+
+  \indexspace
+  \bigletter F
+  \item format() (Service method), \hyperpage{9}
+  \item FTP (class in xscore.checkers), \hyperpage{9}
+
+  \indexspace
+  \bigletter G
+  \item get() (FTP method), \hyperpage{9}
+  \item get() (HTTP method), \hyperpage{9}
+  \item get() (MYSQL method), \hyperpage{9}
+  \item get() (SSH method), \hyperpage{9}
+
+  \indexspace
+  \bigletter H
+  \item HTTP (class in xscore.checkers), \hyperpage{9}
+
+  \indexspace
+  \bigletter M
+  \item MYSQL (class in xscore.checkers), \hyperpage{9}
+
+  \indexspace
+  \bigletter N
+  \item new\_challenge() (in module xscore.scores), \hyperpage{10}
+
+  \indexspace
+  \bigletter Q
+  \item query() (in module xscore.scores), \hyperpage{10}
+
+  \indexspace
+  \bigletter S
+  \item Service (class in xscore.checkers), \hyperpage{9}
+  \item SSH (class in xscore.checkers), \hyperpage{9}
+  \item stat() (Service method), \hyperpage{10}
+
+  \indexspace
+  \bigletter T
+  \item timeout() (in module xscore.checkers), \hyperpage{10}
+  \item TimeOutException, \hyperpage{10}
+
+  \indexspace
+  \bigletter X
+  \item xscore.checkers (module), \hyperpage{9}
+  \item xscore.config (module), \hyperpage{10}
+  \item xscore.logger (module), \hyperpage{10}
+  \item xscore.scores (module), \hyperpage{10}
+
+\end{theindex}

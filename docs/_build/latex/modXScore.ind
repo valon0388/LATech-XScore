@@ -1,0 +1,10 @@
+\begin{theindex}
+\def\bigletter#1{{\Large\sffamily#1}\nopagebreak\vspace{1mm}}
+
+  \bigletter X
+  \item {\texttt  {xscore.checkers}}, \hyperpage{9}
+  \item {\texttt  {xscore.config}}, \hyperpage{10}
+  \item {\texttt  {xscore.logger}}, \hyperpage{10}
+  \item {\texttt  {xscore.scores}}, \hyperpage{10}
+
+\end{theindex}

@@ -1,0 +1,29 @@
+XSCORE-CHECK(1)										XScore-Check Manual								XSCORE-CHECK(1)
+
+NAME
+	xscore-check - check network services
+
+SYNOPSIS
+	xscore-check [OPTIONS] SERVICE
+		
+		Support Service Types:
+		
+		FTP
+		HTTP
+		MySQL
+		SSH
+
+DESCRIPTION
+
+Check network service and submit new scoring event.
+
+OPTIONS
+
+	-t, --timeout
+		maximum amount of time to wait on service response.
+	
+	--nth
+		select the nth service from the services list, if unset or -1 selects randomly.
+
+AUTHOR
+		Score Server Team

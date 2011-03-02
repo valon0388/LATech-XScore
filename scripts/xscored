@@ -1,0 +1,130 @@
+#!/bin/bash
+
+WWW_DIR=www
+PORT=1337
+
+export PYTHONPATH="$PWD:$PYTHONPATH"
+export XSCORE_LOG="$PWD/xscore.log"
+
+XSCORE_CHECK="$PWD/scripts/xscore-check"
+
+xscore-start() {
+    check_env
+    # Kill self on SIGINT to child
+    trap 'trap 2 ; kill -2 $$' 1 2 3 13 15
+
+    echo '================== XScore Starting ===================='
+    echo "xscored: Starting at" `date` && echo
+    while true; do
+	for service in HTTP FTP SSH MySQL; do
+	    echo "==================== $service ========================"
+	    $XSCORE_CHECK $@ $service koth  || exit $?
+	    echo "==================== end $service ===================="
+	    echo
+	done
+	echo "xscored: Stopped:" `date`
+    done
+}
+
+xscore-web() {
+    check_env
+    echo "xscored: Starting server at http://localhost:$PORT"
+    twistd -n web --path "$WWW_DIR" --port $PORT $@ || exit $?
+}
+
+xscore-clear() {
+    make sql-setup || exit $?
+}
+
+xscore-test() {
+    check_env
+    echo '============ HTTP ============'
+    $XSCORE_CHECK http && sleep 0.5
+    echo -e '\n============ FTP ============'
+    $XSCORE_CHECK ftp && sleep 0.5
+    echo -e '\n============ MySQL ============'
+    $XSCORE_CHECK mysql && sleep 0.5
+    echo -e '\n============ SSH ============'
+    $XSCORE_CHECK ssh && sleep 0.5
+}
+
+check_env() {
+    if ! python -c 'import xscore' &> /dev/null; then
+	echo 1>&2 "xscored: error: unable to import the \`xscore' module"
+	echo 1>&2 "xscored: make sure your in the right directory"
+	exit 1
+    fi
+
+    local mysql_args
+    mysql_args=$( python -c '\
+from xscore.config import database
+print "-u %(user)s -p%(passwd)s %(db)s" % database["connect"]' )
+
+    if ! mysql $mysql_args -e 'show tables' &> /dev/null; then
+	echo 1>&2 "xscored: error: unable to access MySQL database as" \
+            "configured in \`xscore/config.py'"
+	exit 1
+    fi
+    teams=$( mysql -t $mysql_args -e 'select * from teams' )
+    if [[ ! $teams ]]; then
+	echo 1>&2 "xscored: error: no teams were found in the database"
+	echo 1>&2 "xscored: run \`xscored clear' to reset the database"
+	exit 1
+    fi
+}
+
+
+xscore-config() {
+    python -c "from xscore.config import *; print eval(\"$@\")"
+}
+
+cmd=$1
+shift
+case $cmd in
+    config)
+	xscore-config $@
+	;; 
+    start)
+	xscore-start $@
+	;;
+    web)
+	xscore-web $@
+	;;	
+    clear)
+	xscore-clear $@
+	;;
+    test)
+	xscore-test $@
+	;;
+    -h|--help|help)
+	cat <<EOF
+xscored v0.1 -- interface to the XScore scoring server 
+Usage: xscored COMMAND
+
+Commands:
+
+ start [WAIT_TIME [TIMEOUT]]
+    Start the scoring server.  \`WAIT_TIME' is the time to wait 
+    between checking each service [default 5].  \`TIMEOUT' is the max
+    time to spend on checking a service.
+
+ web [TWISTD-ARGUMENTS]
+    Start a \`twistd' web server to host the visual front-end.
+    All remaining arguments are passed to twistd.
+
+ clear
+    Resets all the scores and events received by the scoring server.
+
+ test
+    Check each service once.  Mainly intended to be used for debugging.
+
+EOF
+	;;
+    *)
+	cat <<EOF 1>&2
+xscored: error: unknown argument \`$cmd'
+Usage: xscored {start|web|clear|test}
+EOF
+	exit 1
+	;;
+esac

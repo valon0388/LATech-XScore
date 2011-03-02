@@ -1,0 +1,26 @@
+NAME
+****
+
+foo
+
+SYNOPSIS
+========
+
+asdf
+
+DESCRIPTION
+===========
+
+asdfasdf
+
+OPTIONS
+=======
+
+
+EXAMPLE
+=======
+
+SEE ALSO
+========
+
+asdf

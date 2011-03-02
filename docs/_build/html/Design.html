@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Design &mdash; XScore v1.0 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="XScore v1.0 documentation" href="index.html" />
+    <link rel="next" title="xscore" href="xscore.html" />
+    <link rel="prev" title="Requirements" href="Requirements.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="xscore.html" title="xscore"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Requirements.html" title="Requirements"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">XScore v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Design</a><ul>
+<li><a class="reference external" href="#overview">Overview</a></li>
+<li><a class="reference external" href="#user-interfaces">User Interfaces</a><ul>
+<li><a class="reference external" href="#scoring-server">Scoring Server</a></li>
+<li><a class="reference external" href="#front-end">Front-end</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#programming-environment">Programming Environment</a></li>
+<li><a class="reference external" href="#id1">Scoring Server</a><ul>
+<li><a class="reference external" href="#network-service-checkers">Network Service Checkers</a><ul>
+<li><a class="reference external" href="#ftp">FTP</a></li>
+<li><a class="reference external" href="#http">HTTP</a></li>
+<li><a class="reference external" href="#ssh">SSH</a></li>
+<li><a class="reference external" href="#mysql">MySQL</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#scheduling-of-service-checks">Scheduling of Service Checks</a></li>
+<li><a class="reference external" href="#scores-and-events-handeling">Scores and Events Handeling</a></li>
+<li><a class="reference external" href="#communication-with-the-client">Communication with the Client</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="Requirements.html"
+                                  title="previous chapter">Requirements</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="xscore.html"
+                                  title="next chapter"><tt class="docutils literal"><span class="pre">xscore</span></tt></a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/Design.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="design">
+<h1>Design<a class="headerlink" href="#design" title="Permalink to this headline">¶</a></h1>
+<p>The XScore system is divided into multiple components in order to provide a modular design
+that is easy to extend while also satisfying the neccessary requirements of Cyber Storm.
+This document is intended to provide an overview of how XScore is designed and implemented.</p>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>XScore consists of two main components: the scoring server and a visual front-end.
+The scoring server is responsible for scheduling when services are checked and the
+registering of the appropriate scoring events.  In addition, the scoring server handles
+passing data to the scoring client via an HTTP server.</p>
+<p>The visual front-end is a web-based application that provides an
+adminstrative interface to the scoring server.  It provides the
+ability to monitor the progress of the competition as well manage
+various competition related events.</p>
+</div>
+<div class="section" id="user-interfaces">
+<h2>User Interfaces<a class="headerlink" href="#user-interfaces" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="scoring-server">
+<h3>Scoring Server<a class="headerlink" href="#scoring-server" title="Permalink to this headline">¶</a></h3>
+<p>The scoring server is the command-line program <tt class="docutils literal"><span class="pre">xscored</span></tt> which is used to initialize
+and run the server.</p>
+</div>
+<div class="section" id="front-end">
+<h3>Front-end<a class="headerlink" href="#front-end" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="programming-environment">
+<h2>Programming Environment<a class="headerlink" href="#programming-environment" title="Permalink to this headline">¶</a></h2>
+<p>XScore utilizes a number of different software systems to implement the scoring server.
+Although primarily written in Python, it also makes use of Bash shell scripts and the front-end
+makes extensive use of Javascript.  Since this system is intended to be used on Linux based servers,
+little concern was given to portability on non Posix systems.  This allowed us to simplify the
+implementation of the scoring server and prevented us from having to test on other platforms.
+It does however imply that additional development would be required if this feature were wanted in
+the future.</p>
+<p>Other systems used and required by XScore include a MySQL database server and a HTTP server used
+to communicate with the scoring client and host the front-end.  Refer to the README file included
+with the distrubution for the specific versions of the programs used by XScore.</p>
+</div>
+<div class="section" id="id1">
+<h2>Scoring Server<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>The scoring server is divided into four main components:</p>
+<ol class="arabic simple">
+<li>Network Service Checkers.</li>
+<li>Scheduling of Service Checks.</li>
+<li>Scores and Events Handeling.</li>
+<li>Communication with the client.</li>
+</ol>
+<p>These components are discussed in the following sections.</p>
+<div class="section" id="network-service-checkers">
+<h3>Network Service Checkers<a class="headerlink" href="#network-service-checkers" title="Permalink to this headline">¶</a></h3>
+<p>The network service checkers are used to determine the status of a team&#8217;s network service.</p>
+<div class="section" id="ftp">
+<h4>FTP<a class="headerlink" href="#ftp" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="http">
+<h4>HTTP<a class="headerlink" href="#http" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="ssh">
+<h4>SSH<a class="headerlink" href="#ssh" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="mysql">
+<h4>MySQL<a class="headerlink" href="#mysql" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="scheduling-of-service-checks">
+<h3>Scheduling of Service Checks<a class="headerlink" href="#scheduling-of-service-checks" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="scores-and-events-handeling">
+<h3>Scores and Events Handeling<a class="headerlink" href="#scores-and-events-handeling" title="Permalink to this headline">¶</a></h3>
+<p>Record and manage the scores for each team and the events that occur during the competition.</p>
+</div>
+<div class="section" id="communication-with-the-client">
+<h3>Communication with the Client<a class="headerlink" href="#communication-with-the-client" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="xscore.html" title="xscore"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Requirements.html" title="Requirements"
+             >previous</a> |</li>
+        <li><a href="index.html">XScore v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2010, XScorers.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

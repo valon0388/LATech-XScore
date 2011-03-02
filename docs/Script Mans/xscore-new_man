@@ -1,0 +1,37 @@
+XSCORE-NEW(1)										XScore-New Manual									XSCORE-NEW(1)
+
+NAME
+	xscore-new - make new event
+
+SYNOPSIS
+	xscore-new event_type [event-args]
+
+DESCRIPTION
+
+Creates and submits new events to the scoring server.
+
+Event Types:
+	new-challenge -- Create a new challenged
+		Args:
+			CHALLENGE-NAME - The name of the challenge to be displayed on scoring GUI.			
+			POINTS -	Number of Points awarded for successfully completing challenge.			
+			MESSAGE - Message describing challenge.
+	
+	announcment -- Post an announcement to scoring GUI
+		Args:			
+			MESSAGE - Message to be displayed.
+	
+	socre -- Create a new scoring event.
+		Args:
+			TEAM - The name team whos score is being altered.			
+			EVENT_TYPE - The type of scoring event.			
+			POINTS -	Number of points added for event.			
+			MESSAGE - Message describing scoring event.
+			
+	end-challenge -- Declare winner of exsisting challenge
+		Args:
+			CHALLENGE-# - The number of the ended challenge.			
+			WINNER -	Name of the team that completed challenge.
+
+AUTHOR
+		Score Server Team

@@ -1,0 +1,60 @@
+#!/usr/bin/env python2.6
+'''
+Create and submit new events to the scoring server.
+'''
+import os.path, sys
+sys.path.insert(0, os.path.abspath('.'))
+
+import optparse, readline
+from xscore import scores
+from xscore.config import teams
+
+commands = {
+    'score': (('Team', 'Event-type', 'Points', 'Message'), scores.add_event, 'Create new scoring event'),
+    'announcement': (('Message',), scores.add_announcement, 'Make an announcement'),
+    'new-challenge': (('Challenge-Name', 'Points', 'Message'), scores.new_challenge, 'Create new challenge'),
+    'end-challenge': (('Challenge-#', 'Winner'), scores.end_challenge, 'End existing challenge'),
+    }
+
+USAGE = '''
+Usage: xscore-new EVENT-TYPE [EVENT-ARGS]
+ 
+ ''' + __doc__.strip() + '''
+
+ Event types:
+
+'''
+
+for cmd in commands:
+    params, fn, help = commands[cmd]
+    USAGE += '  %s -- %s\n' % (cmd, help)
+    USAGE += '     xscore-new %s %s\n\n' % (cmd, ' '.join(params).upper())
+
+def main():
+    # Process command-line args
+    args = sys.argv[1:]
+    if not args:
+        print >>sys.stderr, USAGE
+        sys.exit()
+    event = args[0]
+    if event not in commands:
+        print >>sys.stderr, "xscore-new: unknown event type `%s'" % event
+        sys.exit(1)
+    params, cmd, help = commands[event]
+    del args[0]
+    if not args:
+        # Prompt for arguments if we are at a terminal
+        if sys.stdin.isatty() and sys.stdout.isatty():            
+            for p in params:
+                args.append(raw_input(p + ': '))
+    if not all(args) or len(args) != len(params):
+        print >>sys.stderr, "xscore-new: invalid number of arguments"
+        sys.exit(1)
+
+    try:
+        cmd(*args)
+    except Exception as e:
+        sys.exit("xscore: error: %s" % e)
+
+if __name__ == '__main__':
+    main()

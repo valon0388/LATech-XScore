@@ -1,0 +1,9 @@
+<div id="events">
+</div>
+<script>
+$("#events").load("/cgi-bin/events.cgi?events", function() {
+		      $("#events table").dataTable(
+//{"bJQueryUI": true}
+);
+		  });
+</script>

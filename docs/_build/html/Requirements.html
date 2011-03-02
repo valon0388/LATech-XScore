@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Requirements &mdash; XScore v1.0 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="XScore v1.0 documentation" href="index.html" />
+    <link rel="next" title="Design" href="Design.html" />
+    <link rel="prev" title="Introduction" href="Introduction.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="Design.html" title="Design"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Introduction.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">XScore v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Requirements</a><ul>
+<li><a class="reference external" href="#network-service-checking">Network Service Checking</a></li>
+<li><a class="reference external" href="#scoring">Scoring</a></li>
+<li><a class="reference external" href="#user-interface-to-xscore">User Interface to XScore</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="Introduction.html"
+                                  title="previous chapter">Introduction</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="Design.html"
+                                  title="next chapter">Design</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/Requirements.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="requirements">
+<h1>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h1>
+<p>To implement the infrastructure needed for the Cyber Storm competition, XScore
+will need to provide two main services: network service checking and a
+point based scoring system to rank the opposing teams.  This document
+describes the requirements of this system.</p>
+<div class="section" id="network-service-checking">
+<h2>Network Service Checking<a class="headerlink" href="#network-service-checking" title="Permalink to this headline">¶</a></h2>
+<p>Throughout the competition, each team will be expected to maintain a number of
+machines that provide a set of network services.  XScore will check the status
+of these services on a regular interval to determine if another team has
+successfully <cite>hacked</cite> or disabled this service.  Support for checking the
+following services will be provided:</p>
+<ul class="simple">
+<li>HTTP - Hyper Text Transfer Protocol</li>
+<li>FTP - File Transfer Protocol</li>
+<li>MySQL - Database Server</li>
+<li>SSH - Secure SHell</li>
+</ul>
+</div>
+<div class="section" id="scoring">
+<h2>Scoring<a class="headerlink" href="#scoring" title="Permalink to this headline">¶</a></h2>
+<p>To determine a winner of the competition, XScore will need to provide
+a system that awards each team points based on the status of the services
+they are able to maintain.  XScore is to provide an automated system that
+will check these services and then award the given team an appropriate number
+of points.</p>
+<p>To establish a well-defined method concerning when points are awarded, we will
+define the status of a service as one of the following states:</p>
+<ol class="arabic simple">
+<li>Service is up and operates as expected.</li>
+<li>Service has been successfully hacked by an opposing team.</li>
+<li>Service is down or does not operate as expected.</li>
+</ol>
+<p>Each of these states will be recognized by XScore and will be the basis on which
+points are awarded.  The value of the points can be specified for each of the services
+checked and configurable as needed.</p>
+<p>In addition to this process of checking services and awarding points, XScore is to
+provide the officials of the competition&#8217;s with the ability to manually adjust
+the scores.  This is intended to provide a fallback in case if the scoring server
+incorrectly awards a team points.  In addition, this will allow the officials to
+handle unforeseen events during the competition.  For example, if a team attempts to
+<cite>hack</cite> XScore and modify the scores, officials may want to remove these points.</p>
+</div>
+<div class="section" id="user-interface-to-xscore">
+<h2>User Interface to XScore<a class="headerlink" href="#user-interface-to-xscore" title="Permalink to this headline">¶</a></h2>
+<p>To allow officials to easily run the scoring server and manage the compeititoin,
+XScore will provide the appropriate software.  Running the scoring server will
+be handled by a command-line program and will schedule when and how often services
+are checked.  To monitor the status of the competition and provide a friendly user
+interface to the scoring server, a web-based application will be included.  This
+program can be used by officials to create new challenges and announce important messages.
+In addition, this program will provide the officials with access to manually adjust the
+scores as needed.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Design.html" title="Design"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Introduction.html" title="Introduction"
+             >previous</a> |</li>
+        <li><a href="index.html">XScore v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2010, XScorers.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

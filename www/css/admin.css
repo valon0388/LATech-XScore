@@ -1,0 +1,87 @@
+
+@import url("custom-theme/jquery-ui-1.8.custom.css");
+@import url("dataTables/css/demo_table.css");
+
+
+body { background: #a82052; }
+#container { background: #a82052; }
+#wrapper { background: white; }
+#header { background: black; }
+#header h1, #header h2 { color: #ebd6ce; }
+#nav { background: #dbcb64; }
+#nav a { color: #282833; }
+#footer a { color: #282833; }
+
+html, body { margin: 0; padding: 0; height: 100%; }
+
+#container {
+    min-height: 100%;
+    position: relative;
+    margin: auto;
+}
+
+#header a img { vertical-align: bottom; }
+
+#content {
+    padding: 10px;
+    padding-bottom: 40px;   /* Height of the footer */
+}
+
+fieldset {
+    padding: 0 1em 1em 1em;
+}
+
+fieldset div {
+    margin: 0.4em;
+}
+
+label {
+    float: left;
+    clear: left;
+    width: 12em;
+}
+
+body {
+  width: 100%;
+}
+
+#container {
+  min-height: 100%;
+  position: relative;
+  margin: auto;
+  width: 95%;
+  padding: 5px;
+}
+
+th span { float: left; }
+th { padding: 0 1em; text-align: center; }
+
+/*
+#events div, #events table {
+  width: 100%;
+}
+*/
+
+form select, form input, form textarea, form button {
+  margin: 0.8em;
+}
+
+.end-challenge {
+  border: 2px dotted black;
+}
+
+.end-challenge form, .end-challenge table {
+  margin: 1em;
+}
+
+/* #summary table { */
+/*     border-collapse: collapse; */
+/* } */
+/*  */
+/*  */
+/* #summary div table tr td { */
+/*     border: 1px solid; */
+/* } */
+
+#summary div table { margin: 1em 0; border-collapse: collapse; }
+#summary div table td { border: 1px solid #eee; padding: .6em 10px; text-align: left; }

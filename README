@@ -1,0 +1,61 @@
+++++++
+XScore
+++++++
+XScore is the scoring server for Cyber Storm, a hackfest competition
+to be held at Louisiana Tech University on May 7, 2010.
+
+
+DEPENDENCIES
+============
+Required programs:
+ 
+ * Python v2.6 <http://python.org/>
+ * MySQL <http://www.mysql.com/>
+ * Twisted <http://twistedmatrix.com/trac/>
+
+Required Python Modules:
+
+ * paramiko <http://www.lag.net/paramiko/>
+ * MySQLdb <http://mysql-python.sourceforge.net/>
+
+
+INSTALL
+=======
+To install XScore::
+
+    ./install.sh
+
+
+RUNNING
+=======
+Start the scoring server::
+
+    ./scripts/xscored start
+
+Start a web server to serve the scores and host the front-end::
+
+    ./scripts/xscored web
+
+
+REPORTING BUGS
+==============
+Report xscore bugs to your Excel spreadsheet.
+Google Code Project: <http://code.google.com/p/hackfest/>
+
+
+LICENSE
+=======
+Copyright 2010 Cyber Storm
+ 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
