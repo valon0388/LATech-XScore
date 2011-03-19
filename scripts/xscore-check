@@ -46,7 +46,7 @@ def main():
                       help="List the services that would be checked and exit.")
     opts, args = parser.parse_args()
     if not args:
-        parser.error("no serice given to check")
+        parser.error("no service given to check")
     args = [a.upper() for a in args]
     to_check = []
     for service in args:

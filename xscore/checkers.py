@@ -3,25 +3,29 @@ Module that handles checking the current status of SQL, FTP,
 SSH, and HTTP services for each team.
 '''
 
-import os, sys, re
-import urllib2, ftplib
+import os, sys, re # os specific functions, interpreter variables and regexp
+import urllib2, ftplib # extensible library for opening URLs, FTP protocol client
 import StringIO
-import signal
-import random
+import signal # Allows use of signal handlers
+import random # random numbers
 
-import MySQLdb
-import pexpect
+import MySQLdb 
+import pexpect # allows the spawning and control of child applications
 
 
-import logging
+import logging # for log files
+
+
 class NullHandler(logging.Handler):
     def emit(self, record):
         pass
 logging.getLogger('paramiko').addHandler(NullHandler())
-import paramiko
+
+import paramiko # allows for the use of ssh and sftp
 
 
-import config, scores
+import config, scores #config: allows for the configuraing of python programs via a config file
+				  #scores: reference to scores.py
 from logger import logger
 
 DEBUG = 1
@@ -96,24 +100,22 @@ class Service(object):
 
     def stat(self):
         '''
-        HTTP Service class
-        
         Get the status of this service. 
         
-        Returns 'UP', 'DOWN', or 'PWNED'
+        Returns 'UP', 'DOWN', or 'HACKED'
         '''
         owner = self.team
-        hackrs = [t['name'] for t in config.teams]
-        hackrs.remove(owner)
-        regexp = lambda s: re.sub(r'\W|_', r'.?', s)
-        motd = self.get()
-        if re.search(regexp(owner), motd, re.I):
+        hackers = [t['name'] for t in config.teams] # Get the names for each team in config.py
+        hackers.remove(owner) 
+        regexp = lambda s: re.sub(r'\W|_', r'.?', s) # recognizes regular expressions
+        motd = self.get()	# Gets the status of whatever service is being checked
+        if re.search(regexp(owner), motd, re.I): # Search for the motd using regular expressions
             return 'UP'
-        for i, hackr in enumerate(hackrs):
-            m = re.search(regexp(hackr), motd, re.I)
+        for i, hacker in enumerate(hackers): # Using regex search for other teams names in the motd.
+            m = re.search(regexp(hacker), motd, re.I) # true if found false if not found
             if m:
-                self.hacker =  hackrs[i]
-                return 'PWNED'
+                self.hackername =  hackers[i] #Stores the name of the team that hacked the service
+                return 'HACKED'
         self.reason = 'Team name not found in motd'
         return 'DOWN'
 
@@ -129,21 +131,21 @@ class Service(object):
           %(ip)       IP address
           %(port)     Port
           %(service)  The service checked
-          %(status)   Status of the service (UP | DOWN | PWNED)
-          %(hacker)   If `status' is PWNED this contains the hacker's name.
+          %(status)   Status of the service (UP | DOWN | HACKED)
+          %(hacker)   If `status' is HACKED this contains the hacker's name.
           %(reason)   If `status' is DOWN this describes why.
         '''
         keys = {'service': self.__class__.__name__, 'hacker': '', 
-                'status': '?', 'reason': ''}
+                'status': '?', 'reason': ''} # (HTTP, Bruce Lee, UP, found team name in motd)
         keys.update(self.__dict__)
         if self.koth:
             keys['service'] = 'KOTH'
         if not fmt:
-            fmt = config.messages[self.status]
+            fmt = config.messages[self.status] #If there is no fmt, then use the message from config.py
         return fmt % keys
 
 
-    def __str__(self):
+    def __str__(self): # Calls above function
         return self.format(
             '%(service)-6s %(team)-13s %(ip)-14s %(port)-4s %(status)s '
             'hacker:%(hacker)s reason:%(reason)s')
@@ -170,18 +172,18 @@ class SSH(Service):
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             try:
                 ssh.connect(self.ip, port=self.port, username=self.usr, password=self.passwd)
-            except Exception, e:
+            except Exception, e:  # attempt to ssh into the Service with given info
                 print e
-                return self.get2()
+                return self.get2() # If that doesn't work try this.
             channel = ssh.invoke_shell()
             channel.setblocking(1)
             fn = channel.makefile()
             channel.sendall('exit #SENTINEL\r\n')
-            motd = fn.read()
+            motd = fn.read() # read the motd
             fn.close(); channel.close()    
             # Return everything before the prompt
             regexp = '^.*?exit #SENTINEL\r\n'
-            m = re.search(regexp, motd, re.M)
+            m = re.search(regexp, motd, re.M) # look for the team name
             if not m: return motd
             return motd[:m.start()]
         finally:

@@ -20,26 +20,26 @@ messages = {
     # Status: Message
     'UP': '%(ip)s is %(status)s',
     'DOWN':  '%(ip)s is %(status)s!',
-    'PWNED': '%(ip)s hacked by %(hacker)s!',
+    'HACKED': '%(ip)s hacked by %(hacker)s!',
 }
 
 
 points = {
     'HTTP-UP':       15, 
     'HTTP-DOWN':     0,
-    'HTTP-PWNED':   -15,
+    'HTTP-HACKED':   -15,
     
     'FTP-UP':        20,
     'FTP-DOWN':      0,
-    'FTP-PWNED':    -10,
+    'FTP-HACKED':    -10,
     
     'SSH-UP':        20,
     'SSH-DOWN':      0,
-    'SSH-PWNED':    -10,
+    'SSH-HACKED':    -10,
     
     'MYSQL-UP':      25,
     'MYSQL-DOWN':    0,
-    'MYSQL-PWNED':  -10,
+    'MYSQL-HACKED':  -10,
 
     'KOTH-UP': 25,
     }
@@ -98,8 +98,8 @@ teams = (
 
         'MYSQL': (
 		  ('10.0.1.10', 3306, 'score', 'Gourdis!7A69'),
-                  ('10.0.1.11', 3306, 'scoringserver', 'Gourdis!7A69'),
-                  ('10.0.1.12', 3306, 'score', 'Gourdis!7A69')
+            ('10.0.1.11', 3306, 'scoringserver', 'Gourdis!7A69'),
+            ('10.0.1.12', 3306, 'score', 'Gourdis!7A69')
 		 ),
         },
             
@@ -139,7 +139,7 @@ teams = (
         'MYSQL': (
 		  ('10.0.2.10', 3306, 'White', 'H3r3U&0'),
         	  ('10.0.2.11', 3306, 'White', 'H@ya0^^1az@k!'),
-                  ('10.0.2.12', 3306, 'White', 'Q4re97BdsT')),
+            ('10.0.2.12', 3306, 'White', 'Q4re97BdsT')),
         },
     )
 
