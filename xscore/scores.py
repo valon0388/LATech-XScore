@@ -14,10 +14,10 @@ def query(sql, sql_args=None):
     Executes query and returns resultset.
     '''
     db = MySQLdb.connect(**database['connect'])
-    c = db.cursor()
+    c = db.cursor() # returns a list of rows as a tuple
     try:
-        c.execute(sql, sql_args)
-        return c.fetchall()
+        c.execute(sql, sql_args) # Executes query on the set
+        return c.fetchall() # returns all available rows from the cursor
     finally:
         c.close()
         db.close()
