@@ -1,0 +1,267 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>xscore &mdash; XScore v1.0 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="XScore v1.0 documentation" href="index.html" />
+    <link rel="prev" title="xscore-new" href="xscore-new.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="xscore-new.html" title="xscore-new"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">XScore v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="xscore">
+<h1>xscore<a class="headerlink" href="#xscore" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-xscore.checkers">
+<h2>checkers<a class="headerlink" href="#module-xscore.checkers" title="Permalink to this headline">¶</a></h2>
+<p>The checkers module implements various network service checks.</p>
+<dl class="class">
+<dt id="xscore.checkers.FTP">
+<em class="property">class </em><tt class="descclassname">xscore.checkers.</tt><tt class="descname">FTP</tt><big>(</big><em>team</em>, <em>ip</em>, <em>port</em>, <em>usr=None</em>, <em>passwd=None</em><big>)</big><a class="headerlink" href="#xscore.checkers.FTP" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="xscore.checkers.FTP.get">
+<tt class="descname">get</tt><big>(</big><big>)</big><a class="headerlink" href="#xscore.checkers.FTP.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="xscore.checkers.HTTP">
+<em class="property">class </em><tt class="descclassname">xscore.checkers.</tt><tt class="descname">HTTP</tt><big>(</big><em>team</em>, <em>ip</em>, <em>port</em>, <em>usr=None</em>, <em>passwd=None</em><big>)</big><a class="headerlink" href="#xscore.checkers.HTTP" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="xscore.checkers.HTTP.get">
+<tt class="descname">get</tt><big>(</big><big>)</big><a class="headerlink" href="#xscore.checkers.HTTP.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="xscore.checkers.MYSQL">
+<em class="property">class </em><tt class="descclassname">xscore.checkers.</tt><tt class="descname">MYSQL</tt><big>(</big><em>team</em>, <em>ip</em>, <em>port</em>, <em>usr=None</em>, <em>passwd=None</em><big>)</big><a class="headerlink" href="#xscore.checkers.MYSQL" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="xscore.checkers.MYSQL.get">
+<tt class="descname">get</tt><big>(</big><big>)</big><a class="headerlink" href="#xscore.checkers.MYSQL.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="xscore.checkers.SSH">
+<em class="property">class </em><tt class="descclassname">xscore.checkers.</tt><tt class="descname">SSH</tt><big>(</big><em>team</em>, <em>ip</em>, <em>port</em>, <em>usr=None</em>, <em>passwd=None</em><big>)</big><a class="headerlink" href="#xscore.checkers.SSH" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="xscore.checkers.SSH.get">
+<tt class="descname">get</tt><big>(</big><big>)</big><a class="headerlink" href="#xscore.checkers.SSH.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="xscore.checkers.Service">
+<em class="property">class </em><tt class="descclassname">xscore.checkers.</tt><tt class="descname">Service</tt><big>(</big><em>team</em>, <em>ip</em>, <em>port</em>, <em>usr=None</em>, <em>passwd=None</em><big>)</big><a class="headerlink" href="#xscore.checkers.Service" title="Permalink to this definition">¶</a></dt>
+<dd><p>Network service that can be checked.</p>
+<dl class="method">
+<dt id="xscore.checkers.Service.check">
+<tt class="descname">check</tt><big>(</big><big>)</big><a class="headerlink" href="#xscore.checkers.Service.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the status of this service.</p>
+<p>Returns the status and a descriptive message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="xscore.checkers.Service.format">
+<tt class="descname">format</tt><big>(</big><em>fmt=None</em><big>)</big><a class="headerlink" href="#xscore.checkers.Service.format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a fancy message describing this service.</p>
+<p><a href="#id1"><span class="problematic" id="id2">`</span></a>fmt&#8217; can contain the following %-style mapping keys which are 
+replaced with the appropriate values.</p>
+<blockquote>
+%(team)     Team name
+%(ip)       IP address
+%(port)     Port
+%(service)  The service checked
+%(status)   Status of the service (UP | DOWN | PWNED)
+%(hacker)   If <a href="#id3"><span class="problematic" id="id4">`</span></a>status&#8217; is PWNED this contains the hacker&#8217;s name.
+%(reason)   If <a href="#id5"><span class="problematic" id="id6">`</span></a>status&#8217; is DOWN this describes why.</blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="xscore.checkers.Service.stat">
+<tt class="descname">stat</tt><big>(</big><big>)</big><a class="headerlink" href="#xscore.checkers.Service.stat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the status of this service.</p>
+<p>Returns &#8216;UP&#8217;, &#8216;DOWN&#8217;, or &#8216;PWNED&#8217;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="xscore.checkers.TimeOutException">
+<em class="property">exception </em><tt class="descclassname">xscore.checkers.</tt><tt class="descname">TimeOutException</tt><a class="headerlink" href="#xscore.checkers.TimeOutException" title="Permalink to this definition">¶</a></dt>
+<dd>An alarm has been triggered.</dd></dl>
+
+<dl class="function">
+<dt id="xscore.checkers.check">
+<tt class="descclassname">xscore.checkers.</tt><tt class="descname">check</tt><big>(</big><em>team</em>, <em>service</em>, <em>options</em><big>)</big><a class="headerlink" href="#xscore.checkers.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check a network service and submit new scoring event.</p>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-t<var>eam</var></span></kbd></td>
+<td>team dict</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-s<var>ervice</var></span></kbd></td>
+<td>string indicating service to check</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-o<var>ptions</var></span></kbd></td>
+<td>options {timeout|entry}</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="xscore.checkers.timeout">
+<tt class="descclassname">xscore.checkers.</tt><tt class="descname">timeout</tt><big>(</big><em>seconds</em>, <em>func</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#xscore.checkers.timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a function in a timely manner.</p>
+<p>The function &#8216;func&#8217; is called with the given arguments.  If it
+does not return within the time specified by &#8216;seconds&#8217;, a
+TimeOutException is raised.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-xscore.config">
+<h2>config<a class="headerlink" href="#module-xscore.config" title="Permalink to this headline">¶</a></h2>
+<p>Configuration data for the competition.</p>
+</div>
+<div class="section" id="module-xscore.logger">
+<h2>logger<a class="headerlink" href="#module-xscore.logger" title="Permalink to this headline">¶</a></h2>
+<p>Logging facilities.</p>
+</div>
+<div class="section" id="module-xscore.scores">
+<h2>scores<a class="headerlink" href="#module-xscore.scores" title="Permalink to this headline">¶</a></h2>
+<p>Database handling facilities.</p>
+<dl class="function">
+<dt id="xscore.scores.add_announcement">
+<tt class="descclassname">xscore.scores.</tt><tt class="descname">add_announcement</tt><big>(</big><em>msg</em>, <em>secs_to_display=10</em><big>)</big><a class="headerlink" href="#xscore.scores.add_announcement" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="xscore.scores.add_event">
+<tt class="descclassname">xscore.scores.</tt><tt class="descname">add_event</tt><big>(</big><em>team</em>, <em>etype</em>, <em>pts</em>, <em>msg</em><big>)</big><a class="headerlink" href="#xscore.scores.add_event" title="Permalink to this definition">¶</a></dt>
+<dd>Submits new event to database.</dd></dl>
+
+<dl class="function">
+<dt id="xscore.scores.end_challenge">
+<tt class="descclassname">xscore.scores.</tt><tt class="descname">end_challenge</tt><big>(</big><em>id</em>, <em>winner</em><big>)</big><a class="headerlink" href="#xscore.scores.end_challenge" title="Permalink to this definition">¶</a></dt>
+<dd>End an existing challenge.</dd></dl>
+
+<dl class="function">
+<dt id="xscore.scores.new_challenge">
+<tt class="descclassname">xscore.scores.</tt><tt class="descname">new_challenge</tt><big>(</big><em>challenge_name</em>, <em>pts</em>, <em>msg</em><big>)</big><a class="headerlink" href="#xscore.scores.new_challenge" title="Permalink to this definition">¶</a></dt>
+<dd>Create a new challenge.</dd></dl>
+
+<dl class="function">
+<dt id="xscore.scores.query">
+<tt class="descclassname">xscore.scores.</tt><tt class="descname">query</tt><big>(</big><em>sql</em>, <em>sql_args=None</em><big>)</big><a class="headerlink" href="#xscore.scores.query" title="Permalink to this definition">¶</a></dt>
+<dd>Submits query to database and returns any resulting rows.</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference external" href="#">xscore</a><ul>
+<li><a class="reference external" href="#module-xscore.checkers">checkers</a></li>
+<li><a class="reference external" href="#module-xscore.config">config</a></li>
+<li><a class="reference external" href="#module-xscore.logger">logger</a></li>
+<li><a class="reference external" href="#module-xscore.scores">scores</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="xscore-new.html"
+                        title="previous chapter">xscore-new</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/xscore.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="xscore-new.html" title="xscore-new"
+             >previous</a> |</li>
+        <li><a href="index.html">XScore v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, XScorers.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
+    </div>
+  </body>
+</html>

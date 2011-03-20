@@ -1,0 +1,9 @@
+XScore/www/stats
+
+XScore/www/stats/raphael-min.js 
+	
+	The core vector engine, used for creating graphs and charts.
+
+XScore/www/stats/g.raphael-min.js
+	
+	The number processor, used for creating graphs and charts.

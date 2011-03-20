@@ -1,0 +1,30 @@
+XSCORED(1)											XScore Manual											XSCORED(1)
+
+NAME
+	xscored - interface to the XScore scoring server
+
+SYNOPSIS
+	xscored COMMAND
+
+DESCRIPTION
+
+	Used to start and control the scoring server
+	
+	Commands:
+		 start [WAIT_TIME]
+		    Start the scoring server.  \`WAIT_TIME' is the time to wait 
+		    between checking each service [default 5].
+
+		 web [TWISTD-ARGUMENTS]
+		    Start a \`twistd' web server to host the visual front-end.
+		    All remaining arguments are passed to twistd.  Default log file
+		    is \`$TWISTD_LOG_FILE'.
+
+		 clear
+		    Resets all the scores and events received by the scoring server.
+
+		 test
+		    Check each service once.  Mainly intended to be used for debugging.
+
+AUTHOR
+		Score Server Team
