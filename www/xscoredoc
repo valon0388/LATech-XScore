@@ -1,9 +1,49 @@
-XScore/www/stats
+
+
+--------------------------------------------------------------------------------
+
+*XScore/www/js
+
+XScore/www/js/jquery.dataTables.min.js
+
+	Used to create tables. 
+
+XScore/www/js/jquery.form.js
+
+	Used to upgrade HTML forms to use AJAX.
+
+XScore/www/js/jquery-1.4.2.min.js
+
+	A standard jquery library used to provide visuals to a webpage.
+
+XScore/www/js/jquery-ui-1.8.custom.min.js
+
+	A jquery library that can be used to create a great deal of UI widgets.
+
+--------------------------------------------------------------------------------
+
+*XScore/www/stats
+	Folder is used to provide visuals and statistics for realTimeViz.html
+
+XScore/www/stats/g.raphael-min.js
+	
+	The number processor, used for creating graphs and charts.
+
+XScore/www/stats/jquery-1.4.2.min.js
+
+	A standard jquery library used to provide visuals to a webpage.
 
 XScore/www/stats/raphael-min.js 
 	
 	The core vector engine, used for creating graphs and charts.
 
-XScore/www/stats/g.raphael-min.js
+XScore/www/stats/realTimeViz.html
 	
-	The number processor, used for creating graphs and charts.
+	-- Uses g.raphael-min.js, jquery-1.4.2.min.js, raphael-min.js, realTimeViz.js
+	
+	Creates a webpage that tracks the output from each server to each other server.
+
+XScore/www/stats/realTimeViz.js
+
+	The backend for realTimeViz.html does all of the calculations.
+
