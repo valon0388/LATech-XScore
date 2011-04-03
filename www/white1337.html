@@ -70,8 +70,8 @@
         <form id="announce-form" action="/cgi-bin/add-event.cgi">
             <fieldset>
                 <label for="message">Announce</label><br />
-                <textarea rows="3" cols="23" name="message" id="announce-message"></textarea><br />
-                <input type="hidden" name="type" value="announcement" />
+                <textarea style="background:#000000; color: #008B00" rows="3" cols="23" name="message" id="announce-message"></textarea><br />
+                <input  type="hidden"  name="type" value="announcement" />
                 <button id="announce-button">Announce</button>
             </fieldset>
         </form>
@@ -87,11 +87,11 @@
 		    <option>Chuck Norris</option>
 		</select><br />
 		<label for="points">Points</label><br />
-		<input type="number" name="points" id="scores-points" value="" /><br />
+		<input type="number" style="background:#000000; color: #008B00" name="points" id="scores-points" value="" /><br />
 		<label for="message">Message</label><br />
-		<textarea rows="3" cols="23" name="message" id="scores-message"></textarea><br />
+		<textarea style="background:#000000; color: #008B00; border-bottom-color:#008B00" rows="3" cols="23" name="message" id="scores-message"></textarea><br />
 		<input type="hidden" name="eventType" value="Admin" />
-		<input type="hidden" name="type" value="scoringevent" />
+		<input type="hidden"  name="type" value="scoringevent" />
 		<button id="scores-button">Update Scores</button>
 	    </fieldset>	    
         </form>	
