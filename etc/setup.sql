@@ -19,13 +19,15 @@ CREATE TABLE scores.events
        PRIMARY KEY (id));
 
 CREATE TABLE scores.challenges
-       (id INT NOT NULL AUTO_INCREMENT,
-       challenge_name VARCHAR(100),
-       winner VARCHAR(100),
-       points BIGINT,
-       message TEXT,
-       start TIMESTAMP,
-       PRIMARY KEY (id));
+	(id INT,
+	difficulty INT,
+	state TEXT,
+	hidden TEXT,
+	category TEXT,
+	description VARCHAR(200),
+	blue_points INT,
+	red_points INT,
+	PRIMARY KEY (id));       
 
 CREATE TABLE scores.announcements
        (id INT NOT NULL AUTO_INCREMENT,
