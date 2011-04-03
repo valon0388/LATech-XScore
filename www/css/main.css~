@@ -1,3 +1,4 @@
+
 body { background: black; }
 #container { background: black; }
 #wrapper { background: black; }
@@ -16,10 +17,6 @@ body { background: black; }
 #header {
     padding: 0.5em;
     margin: 0;
-}
-
-#tabs {
-    background: black
 }
 
 #header h1 {
