@@ -1,12 +1,12 @@
 
-body { background: #a82052; }
-#container { background: #a82052; }
-#wrapper { background: white; }
-#header { background: #282833; }
-#header h1, #header h2 { color: #ebd6ce; }
-#nav { background: #dbcb64; }
-#nav a { color: #282833; }
-#footer a { color: #282833; }
+body { background: black; }
+#container { background: black; }
+#wrapper { background: black; }
+#header { background: black; }
+#header h1, #header h2 { color: black; }
+#nav { background: black; }
+#nav a { color: black; }
+#footer a { color: black; }
 
 #container {
     padding: 1em 2em;
@@ -17,6 +17,10 @@ body { background: #a82052; }
 #header {
     padding: 0.5em;
     margin: 0;
+}
+
+#tabs {
+    background: black
 }
 
 #header h1 {

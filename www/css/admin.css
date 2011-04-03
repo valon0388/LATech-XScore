@@ -3,14 +3,14 @@
 @import url("dataTables/css/demo_table.css");
 
 
-body { background: #a82052; }
-#container { background: #a82052; }
-#wrapper { background: white; }
+body { background: black; }
+#container { background: black; }
+#wrapper { background: black; }
 #header { background: black; }
-#header h1, #header h2 { color: #ebd6ce; }
-#nav { background: #dbcb64; }
-#nav a { color: #282833; }
-#footer a { color: #282833; }
+#header h1, #header h2 { color: black; }
+#nav { background: black; }
+#nav a { color: black; }
+#footer a { color: black; }
 
 html, body { margin: 0; padding: 0; height: 100%; }
 
@@ -84,4 +84,4 @@ form select, form input, form textarea, form button {
 /* } */
 
 #summary div table { margin: 1em 0; border-collapse: collapse; }
-#summary div table td { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+#summary div table td { border: 0px solid #eee; padding: .6em 10px; text-align: left; }
