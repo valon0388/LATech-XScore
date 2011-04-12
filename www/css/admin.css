@@ -54,7 +54,7 @@ body {
 }
 
 th span { float: left; }
-th { padding: 0 1em; text-align: center; }
+th { padding: 0 1em; text-align: center; color: green; }
 
 /*
 #events div, #events table {

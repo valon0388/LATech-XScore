@@ -8,6 +8,7 @@ print
 
 from xscore import scores
 
+
 form = cgi.FieldStorage()
 try:
     action = form['type'].value
@@ -28,7 +29,8 @@ try:
         ch_name = form['challengeName'].value
         points = int(form['points'].value)
         message = form['message'].value
-        scores.new_challenge(ch_name, points, message)
+        winner = 'none'
+        scores.new_challenge(ch_name, points, message, winner)
         print 'Challenge Started!'
         
     elif action == 'endchallenge':

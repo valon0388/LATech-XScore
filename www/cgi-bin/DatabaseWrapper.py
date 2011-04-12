@@ -37,6 +37,21 @@ class dbconnect:
 		self.conn.commit()
 		self.conn.close()
 			
+	def getScore(team):
+		try:
+			cursor = self.conn.cursor ()
+			query = "SELECT score FROM teams t WHERE team_name = %s" %(team)
+			success = cursor.execute (query)
+			
+			if success:
+				return cursor.fetchall()
+			else:
+				return 0
+				
+		except MySQLdb.Error, e:
+			print "Error %d: %s" % (e.args[0], e.args[1])
+			sys.exit (1)
+			
 	#Add an event to the database. Pass in team nae, type of event, number of points awarded (can be negative), time event occured (currently requires format YYYY-MM-DD HH:MM:SS but can be changed to UTC if that is preferable), and the message to be displayed
 	def addEvent(self, team_name, type, points, time, message):
 		try:

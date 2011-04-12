@@ -23,6 +23,8 @@ for arg in sys.argv[1:]:
     colheaders = tables[arg]
     if arg == 'events':
         rows = scores.query('select * from scores.' + arg + ' order by id desc limit 1000')
+    elif arg == 'challenges':
+	rows = scores.query('select * from scores.' + arg + ' where winner = "none"')
     else:
         rows = scores.query('select * from scores.' + arg)
 

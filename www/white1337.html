@@ -12,6 +12,27 @@
 <script type="text/javascript" src="js/jquery.form.js"></script>
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 
+<script type="text/javascript">
+
+    //window.onload=updateScores
+/*    setTimeout(updateScores(),5000);
+    
+    function updateScores()
+    {
+	
+	var blueScore = document.getElementById('blue-score');
+	var redScore = document.getElementById('red-score');
+	
+	var newScores = $.ajax({url: "getScores.py", async: false }).responseText; 
+	alert(newScores);
+	
+	*/
+    }
+
+</script>
+
+
+
 </head>
 <body>
 
@@ -106,6 +127,7 @@
 	    </ul>
 
 	    <div id="new-challenge">
+	    
 		<form id="new-challenge-form" action="/cgi-bin/add-event.cgi">
 		    <fieldset>
 			<label for="challengeName">Challenge Name</label><br />
@@ -120,7 +142,7 @@
 		</form>
 	    </div>
 	    <!-- /new-challenge -->
-
+	    
 	</div>
 	<!-- /challenge-sections -->	
     </div>
