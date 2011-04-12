@@ -12,6 +12,27 @@
 <script type="text/javascript" src="js/jquery.form.js"></script>
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 
+<script type="text/javascript">
+
+    //window.onload=updateScores
+/*    setTimeout(updateScores(),5000);
+    
+    function updateScores()
+    {
+	
+	var blueScore = document.getElementById('blue-score');
+	var redScore = document.getElementById('red-score');
+	
+	var newScores = $.ajax({url: "getScores.py", async: false }).responseText; 
+	alert(newScores);
+	
+	*/
+    }
+
+</script>
+
+
+
 </head>
 <body>
 
@@ -70,8 +91,8 @@
         <form id="announce-form" action="/cgi-bin/add-event.cgi">
             <fieldset>
                 <label for="message">Announce</label><br />
-                <textarea rows="3" cols="23" name="message" id="announce-message"></textarea><br />
-                <input type="hidden" name="type" value="announcement" />
+                <textarea style="background:#000000; color: #008B00" rows="3" cols="23" name="message" id="announce-message"></textarea><br />
+                <input style="background:#000000; color: #008B00"  type="hidden"  name="type" value="announcement" />
                 <button id="announce-button">Announce</button>
             </fieldset>
         </form>
@@ -82,16 +103,16 @@
         <form id="scores-form" action="/cgi-bin/add-event.cgi">
 	    <fieldset>
 		<label for="teamName">Team Name</label><br />
-		<select name="teamName">
+		<select style="background:#000000; color: #008B00" name="teamName">
 		    <option>Bruce Lee</option>
 		    <option>Chuck Norris</option>
 		</select><br />
 		<label for="points">Points</label><br />
-		<input type="number" name="points" id="scores-points" value="" /><br />
+		<input type="number" style="background:#000000; color: #008B00" name="points" id="scores-points" value="" /><br />
 		<label for="message">Message</label><br />
-		<textarea rows="3" cols="23" name="message" id="scores-message"></textarea><br />
-		<input type="hidden" name="eventType" value="Admin" />
-		<input type="hidden" name="type" value="scoringevent" />
+		<textarea style="background:#000000; color: #008B00; border-bottom-color:#008B00" rows="3" cols="23" name="message" id="scores-message"></textarea><br />
+		<input style="background:#000000; color: #008B00" type="hidden" name="eventType" value="Admin" />
+		<input style="background:#000000; color: #008B00" type="hidden"  name="type" value="scoringevent" />
 		<button id="scores-button">Update Scores</button>
 	    </fieldset>	    
         </form>	
@@ -106,21 +127,22 @@
 	    </ul>
 
 	    <div id="new-challenge">
+	    
 		<form id="new-challenge-form" action="/cgi-bin/add-event.cgi">
 		    <fieldset>
 			<label for="challengeName">Challenge Name</label><br />
-			<input name="challengeName" id="new-challenge-name" value="" /><br />
+			<input style="background:#000000; color: #008B00" name="challengeName" id="new-challenge-name" value="" /><br />
 			<label for="points">Points</label><br />
-			<input type="number" name="points" id="new-challenge-points" value="" /><br />
+			<input style="background:#000000; color: #008B00" type="number" name="points" id="new-challenge-points" value="" /><br />
 			<label for="message">Announcement</label><br />
-			<textarea rows="3" cols="23" name="message" id="new-challenge-message"></textarea><br />
-			<input type="hidden" name="type" value="newchallenge" />
+			<textarea bordercolor = green style="background:#000000; color: #008B00" rows="3" cols="23" name="message" id="new-challenge-message"></textarea><br />
+			<input style="background:#000000; color: #008B00" type="hidden" name="type" value="newchallenge" />
 			<button id="new-challenge-button">Start Challenge</button>
 		    </fieldset>
 		</form>
 	    </div>
 	    <!-- /new-challenge -->
-
+	    
 	</div>
 	<!-- /challenge-sections -->	
     </div>

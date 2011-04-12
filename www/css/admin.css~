@@ -5,10 +5,10 @@
 
 body { background: black; }
 #container { background: black; }
-#wrapper { background: white; }
+#wrapper { background: black; }
 #header { background: black; }
 #header h1, #header h2 { color: black; }
-#nav { background: white; }
+#nav { background: black; }
 #nav a { color: black; }
 #footer a { color: black; }
 

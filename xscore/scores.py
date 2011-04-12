@@ -21,6 +21,14 @@ def query(sql, sql_args=None):
     finally:
         c.close()
         db.close()
+        
+'''def getScores():
+    red = query("""select score from scores.teams where color = "red""")
+    blue = query("""select score from scores.teams where color = "blue""")
+    scores = red[0] + "," + blue[0]
+    return scores        
+'''
+
 
 def add_announcement(msg, secs_to_display=10):
     '''
@@ -53,14 +61,15 @@ def add_event(team, etype, pts, msg):
                     % (etype, team, pts, msg))
 
 
-def new_challenge(challenge_name, pts, msg):
+def new_challenge(challenge_name, pts, msg, winner):
     '''
     Create a new challenge.
-    '''
+    ''' 
     query('''insert into scores.challenges set challenge_name = %s,
                                                points = %s,
-                                               message = %s''', 
-          (challenge_name, pts, msg))
+                                               message = %s,
+                                               winner = %s''', 
+          (challenge_name, pts, msg, winner))
     add_announcement(msg)
     logger.info("New-Challenge [name: %s] [pts: %s] [msg: %s]"
                 % (challenge_name, pts, msg))
