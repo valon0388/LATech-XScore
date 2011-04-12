@@ -16,6 +16,7 @@ print
 
 teams = list(query("""select team_name, color, score, challenges_won 
                                              from scores.teams"""))
+
 # Why does order matter?
 teams[0], teams[1] = teams[1], teams[0]
 

@@ -21,7 +21,8 @@ if nodes:
 	for node in nodes:
 		print "\t<IP Address=\"" + node[1] + "\" Team=\"" + node[2] + "\" OS=\"" + node[3]+ "\" NodeType=\"" + node[4]  + "\">"
 	
-		print "\t\t<ServiceList>"
+		print "\t\
+t<ServiceList>"
 	
 		if node[5] == "none":
 			print "\t\t</ServiceList>"

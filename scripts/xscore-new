@@ -12,8 +12,8 @@ from xscore.config import teams
 commands = {
     'score': (('Team', 'Event-type', 'Points', 'Message'), scores.add_event, 'Create new scoring event'),
     'announcement': (('Message',), scores.add_announcement, 'Make an announcement'),
-    'new-challenge': (('Challenge-Name', 'Points', 'Message'), scores.new_challenge, 'Create new challenge'),
-    'end-challenge': (('Challenge-#', 'Winner'), scores.end_challenge, 'End existing challenge'),
+    'new-challenge': (('ID', 'Challenge-Name', 'Difficulty', 'State', 'Hidden', 'Category', 'Description'), scores.new_challenge, 'Create new challenge'),
+    'update-challenge': (('ID', 'Winner' 'points'), scores.update_challenge, 'Update existing challenge'),
     }
 
 USAGE = '''

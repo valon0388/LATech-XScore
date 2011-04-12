@@ -53,35 +53,56 @@ def add_event(team, etype, pts, msg):
                     % (etype, team, pts, msg))
 
 
-def new_challenge(challenge_name, pts, msg):
-    '''
-    Create a new challenge.
-    '''
-    query('''insert into scores.challenges set challenge_name = %s,
-                                               points = %s,
-                                               message = %s''', 
-          (challenge_name, pts, msg))
-    add_announcement(msg)
-    logger.info("New-Challenge [name: %s] [pts: %s] [msg: %s]"
-                % (challenge_name, pts, msg))
+def new_challenge(id, challenge_name, difficulty, state, hidden, category, description ):
+	'''
+	Create a new challenge.
+    	''' # We should calculate scores now instead of having the points sent to us.
+	if id == 0:
+		ids = {} 
+		ids = query('''SELECT id FROM scores.challenges''')
+		id = ids.pop() + 1
+
+    	query('''INSERT INTO scores.challenges SET id = %d, challenge_name = %s, difficulty = %d, state = %s, hidden = %s, category = %s,description = %s,''', 
+          (id, challenge_name, difficulty, state, hidden, category, description))
+    	add_announcement(description)
+	fullHidden = NULL
+	if hidden == 'h':
+		fullHidden = 'Hidden from all.'
+	elif hidden == 't':
+		fullHidden = 'Hidden from teams.'
+	elif hidden == 'v':
+		fullHidden = 'Visible to all.'
+
+	fullCategory = NULL
+	if category == 'p':
+		fullCategory = 'Penetration'
+	elif category == 'k':
+		fullCategory = 'King of the Hill'
+	elif category == 's':
+		fullCategory = 'Scavenger Hunt'
+	elif category == 'r':
+		fullCategory = 'Riddle'
+		
+    	logger.info("New-Challenge [Name: %s] [Difficulty: %d] [Hidden: %s] [Category: %s] [Description: %s]"
+                	% (challenge_name, difficulty, fullHidden, fullCategory, description))
 
 
-def end_challenge(id, winner):
+def update_challenge(id, winner, points):
     '''
     Declare a winner for an existing challenge.
     '''
     rows = query('''select * from scores.challenges where id = %s''',
                  (id,))
     assert rows, 'No open challenges'
-    id, c_name, winr, pts, msg, ts = rows[0]
-    assert winr is None, 'Challenge already closed'
-    add_event(winner, c_name, pts, 'Challenge Won!')
-    add_announcement('%s wins %s challenge!' % (winner, c_name))
-    query('''update scores.challenges set winner = %s
+    id, challenge_name, difficulty, state, hidden, category, description, blue_points, red_points = rows[0]
+    assert state is not 'x', 'Challenge already closed'
+    add_event(winner, challenge_name, points, 'Challenge Won!')
+    add_announcement('%s wins %s challenge!' % (winner, challenge_name))
+    query('''update scores.challenges set %s_points = %d
                                        where id = %s''', 
-          (winner, id))
+          (winner, points, id))
     query('''update scores.teams set challenges_won = challenges_won + 1
                                   where team_name = %s''',
           (winner,))
-    logger.info("Challenge-Ended: [id: %s] [name: %s] [winner: %s]"
-                % (id, c_name, winner))
+    logger.info("Challenge-Updated: [id: %s] [name: %s] [winner: %s]"
+                % (id, challenge_name, winner))
