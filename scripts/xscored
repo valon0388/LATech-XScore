@@ -1,4 +1,4 @@
-a#!/bin/bash
+#!/bin/bash
 
 WWW_DIR=www
 PORT=1337
