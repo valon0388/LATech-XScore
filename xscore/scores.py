@@ -21,6 +21,14 @@ def query(sql, sql_args=None):
     finally:
         c.close()
         db.close()
+        
+'''def getScores():
+    red = query("""select score from scores.teams where color = "red""")
+    blue = query("""select score from scores.teams where color = "blue""")
+    scores = red[0] + "," + blue[0]
+    return scores        
+'''
+
 
 def add_announcement(msg, secs_to_display=10):
     '''
@@ -53,6 +61,7 @@ def add_event(team, etype, pts, msg):
                     % (etype, team, pts, msg))
 
 
+<<<<<<< HEAD
 def new_challenge(id, challenge_name, difficulty, state, hidden, category, description ):
 	'''
 	Create a new challenge.
@@ -85,6 +94,20 @@ def new_challenge(id, challenge_name, difficulty, state, hidden, category, descr
 		
     	logger.info("New-Challenge [Name: %s] [Difficulty: %d] [Hidden: %s] [Category: %s] [Description: %s]"
                 	% (challenge_name, difficulty, fullHidden, fullCategory, description))
+=======
+def new_challenge(challenge_name, pts, msg, winner):
+    '''
+    Create a new challenge.
+    ''' 
+    query('''insert into scores.challenges set challenge_name = %s,
+                                               points = %s,
+                                               message = %s,
+                                               winner = %s''', 
+          (challenge_name, pts, msg, winner))
+    add_announcement(msg)
+    logger.info("New-Challenge [name: %s] [pts: %s] [msg: %s]"
+                % (challenge_name, pts, msg))
+>>>>>>> blackdragon0688-master
 
 
 def update_challenge(id, winner, points):
