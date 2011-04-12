@@ -29,14 +29,14 @@ try:
         ch_name = form['challengeName'].value
         points = int(form['points'].value)
         message = form['message'].value
-        state = 'i'
-        scores.new_challenge(ch_name, points, message, state)
+        state = 'a'
+        scores.new_challenge(ch_name, points, message, state) #######
         print 'Challenge Started!'
         
     elif action == 'updatechallenge':
         _id = form['id'].value
         winner = form['winner'].value
-        scores.update_challenge(_id, winner) ######
+        scores.update_challenge(_id, winner) #######
         print 'Challenge Updated!'
     else:
         raise Exception("Unknown request!")

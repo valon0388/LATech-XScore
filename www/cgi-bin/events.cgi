@@ -24,7 +24,7 @@ for arg in sys.argv[1:]:
     if arg == 'events':
         rows = scores.query('select * from scores.' + arg + ' order by id desc limit 1000')
     elif arg == 'challenges':
-	rows = scores.query('select * from scores.' + arg + ' where state = "i"')
+	rows = scores.query('select * from scores.' + arg + ' where state = "a"')
     else:
         rows = scores.query('select * from scores.' + arg)
 
