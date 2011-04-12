@@ -61,14 +61,13 @@ def add_event(team, etype, pts, msg):
                     % (etype, team, pts, msg))
 
 
-<<<<<<< HEAD
 def new_challenge(id, challenge_name, difficulty, state, hidden, category, description ):
 	'''
 	Create a new challenge.
     	''' # We should calculate scores now instead of having the points sent to us.
 	if id == 0:
 		ids = {} 
-		ids = query('''SELECT id FROM scores.challenges''')
+		ids = query('''SELECT id FROM scores.challenges WHERE id < 128''')
 		id = ids.pop() + 1
 
     	query('''INSERT INTO scores.challenges SET id = %d, challenge_name = %s, difficulty = %d, state = %s, hidden = %s, category = %s,description = %s,''', 
@@ -94,20 +93,6 @@ def new_challenge(id, challenge_name, difficulty, state, hidden, category, descr
 		
     	logger.info("New-Challenge [Name: %s] [Difficulty: %d] [Hidden: %s] [Category: %s] [Description: %s]"
                 	% (challenge_name, difficulty, fullHidden, fullCategory, description))
-=======
-def new_challenge(challenge_name, pts, msg, winner):
-    '''
-    Create a new challenge.
-    ''' 
-    query('''insert into scores.challenges set challenge_name = %s,
-                                               points = %s,
-                                               message = %s,
-                                               winner = %s''', 
-          (challenge_name, pts, msg, winner))
-    add_announcement(msg)
-    logger.info("New-Challenge [name: %s] [pts: %s] [msg: %s]"
-                % (challenge_name, pts, msg))
->>>>>>> blackdragon0688-master
 
 
 def update_challenge(id, winner, points):

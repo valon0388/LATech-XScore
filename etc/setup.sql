@@ -20,7 +20,7 @@ CREATE TABLE scores.events
 
 CREATE TABLE scores.challenges
 	(id INT,
-	challenge_name VARCHAR(50)
+	challenge_name VARCHAR(50),
 	difficulty INT,
 	state TEXT,
 	hidden TEXT,

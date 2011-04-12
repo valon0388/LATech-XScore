@@ -30,7 +30,8 @@ try:
         points = int(form['points'].value)
         message = form['message'].value
         state = 'a'
-        scores.new_challenge(ch_name, points, message, state) #######
+	   id = 0
+        scores.new_challenge(id, ch_name, difficulty, state, hidden, category, message) #######
         print 'Challenge Started!'
         
     elif action == 'updatechallenge':
