@@ -27,10 +27,13 @@ try:
         
     elif action == 'newchallenge':
         ch_name = form['challengeName'].value
-        points = int(form['points'].value)
+        difficulty = form['difficulty'].value
+        hidden = form['visibility'].value
+        category = form['category'].value
+        points = int(form['points'].value)#do we even need this anymore??
         message = form['message'].value
         state = 'a'
-	   id = 0
+	id = 0
         scores.new_challenge(id, ch_name, difficulty, state, hidden, category, message) #######
         print 'Challenge Started!'
         
