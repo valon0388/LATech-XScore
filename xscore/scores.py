@@ -68,7 +68,7 @@ def new_challenge(id, challenge_name, difficulty, state, hidden, category, descr
 	if id == 0:
 		ids = {} 
 		ids = query('''SELECT id FROM scores.challenges WHERE id < 128''')
-		id = ids.pop() + 1
+		id = ids.list().pop() + 1
 
     	query('''INSERT INTO scores.challenges SET id = %d, challenge_name = %s, difficulty = %d, state = %s, hidden = %s, category = %s,description = %s,''', 
           (id, challenge_name, difficulty, state, hidden, category, description))
