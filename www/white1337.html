@@ -136,8 +136,35 @@
 			<input style="background:#000000; color: #008B00" type="number" name="points" id="new-challenge-points" value="" /><br />
 			<label for="message">Announcement</label><br />
 			<textarea bordercolor = green style="background:#000000; color: #008B00" rows="3" cols="23" name="message" id="new-challenge-message"></textarea><br />
+			<label for="difficulty">Difficulty</label><br/>
+			<select style="background:#000000; color: #008B00" name="difficulty">
+			    <option>1</option>
+			    <option>2</option>
+			    <option>3</option>
+			    <option>4</option>
+			    <option>5</option>
+			    <option>6</option>
+			    <option>7</option>
+			    <option>8</option>
+			    <option>9</option>
+			    <option>10</option>
+			</select><br />
+			<label for="visibility">visibility</label><br/>
+			<select style="background:#000000; color: #008B00" name="visibility">
+			    <option value="h">Hidden from all</option>
+			    <option value="t">Hidden from teams</option>
+			    <option value="v">Visible to everyone</option>
+			</select><br />
+			<label for="category">category</label><br/>
+			<select style="background:#000000; color: #008B00" name="category">
+			    <option value="p">KOTH</option>
+			    <option value="k">Penetration</option>
+			    <option value="s">scavenger</option>
+			    <option value="r">riddle</option>
+			</select><br />
 			<input style="background:#000000; color: #008B00" type="hidden" name="type" value="newchallenge" />
 			<button id="new-challenge-button">Start Challenge</button>
+			
 		    </fieldset>
 		</form>
 	    </div>
