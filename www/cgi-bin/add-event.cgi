@@ -33,18 +33,18 @@ try:
         points = int(form['points'].value)#do we even need this anymore??
         message = form['message'].value
         state = 'a'
-	id = 0
-        scores.new_challenge(id, ch_name, difficulty, state, hidden, category, message) #######
+        c_id = 0
+        scores.new_challenge(c_id, ch_name, difficulty, state, hidden, category, message) #######
         print 'Challenge Started!'
         
-    elif action == 'updatechallenge':
+    elif action == 'Updatechallenge':
         _id = form['id'].value
         winner = form['winner'].value
-        scores.update_challenge(_id, winner) #######
+        scores.update_challenge(_id, winner, 5) #######
         print 'Challenge Updated!'
     else:
         raise Exception("Unknown request!")
-    sys.exit()
+    sys.exit()-
 except KeyError as e:
     print '''
 <p><blink>Error</blink>  No entry for %s.</p>

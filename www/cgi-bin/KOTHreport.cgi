@@ -7,32 +7,32 @@ from xml.sax import saxutils
 
 from xscore.scores import query
 
-print 'Content-Type: application/xml'
+print 'Content-Type: text/html\n'
 print
 
-boxes = list(query("""SELECT description, state FROM scores.challenges WHERE state != 'x'""")) 
+boxes = list(query("""SELECT description, state FROM scores.challenges WHERE category = 'k'""")) 
 #states = list(query("""SELECT state FROM scores.challenges WHERE category=k AND state=x"""))
 
 
 kothip = {}
 kothown = {}
 ip = []
-i = 0
-#print len(boxes), boxes
-for box in boxes:
-	ip = box[0].split(':',1)
-	#print i,' ', box
+for i, box in enumerate(boxes):
+	ip = box[0].split(':', 1)
 	kothip[i] = ip[0]
 	if box[1] == 'b':	
 		kothown[i] = 'BLUE'
-	if box[1] == 'r':
+	elif box[1] == 'r':
 		kothown[i] = 'RED'
-	#print kothip[i], " ", kothown[i], 
-	i += 1
+	else :
+		kothown[i] = 'UNOWNED'
 ##################################################
-
-print '<KOTHBOXES',
+i
+#print '<KOTHBOXES',
 for j, box in enumerate(boxes):
-    print kothip[j]+" "+kothown[j]+":",
-print '>'
-print '</KOTHBOXES>'
+    print kothip[j]
+    print " "
+    print kothown[j]
+    print ":",
+#print '>'
+#print '</KOTHBOXES>'

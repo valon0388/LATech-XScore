@@ -61,19 +61,30 @@ def add_event(team, etype, pts, msg):
                     % (etype, team, pts, msg))
 
 
-def new_challenge(id, challenge_name, difficulty, state, hidden, category, description ):
+def new_challenge(c_id, challenge_name, difficulty, state, hidden, category, description ):
 	'''
 	Create a new challenge.
     	''' # We should calculate scores now instead of having the points sent to us.
-	if id == 0:
-		ids = {} 
-		ids = query('''SELECT id FROM scores.challenges WHERE id < 128''')
-		id = ids.list().pop() + 1
-
-    	query('''INSERT INTO scores.challenges SET id = %d, challenge_name = %s, difficulty = %d, state = %s, hidden = %s, category = %s,description = %s,''', 
-          (id, challenge_name, difficulty, state, hidden, category, description))
+	if c_id == 0:
+#		ids = query('''SELECT id FROM scores.challenges WHERE id < 128''')
+		ids = query('''select id from scores.challenges where id < 128 order by id desc limit 1''')
+		
+#		print "This is the tuple called ids."
+#		print ids
+		ids = list(ids)
+#		print "\nThis is the list called ids."
+#		print ids
+		
+		if not ids:	
+			c_id = int(1)
+		else :
+			c_id = int(ids[0][0]) + 1
+#		print c_id
+    	query('''INSERT INTO scores.challenges SET id = %s, challenge_name = %s, difficulty = %s, state = %s, hidden = %s, category = %s, description = %s''', 
+          (c_id, challenge_name, difficulty, state, hidden, category, description))
+	print "After query."
     	add_announcement(description)
-	fullHidden = NULL
+	fullHidden = None
 	if hidden == 'h':
 		fullHidden = 'Hidden from all.'
 	elif hidden == 't':
@@ -81,7 +92,7 @@ def new_challenge(id, challenge_name, difficulty, state, hidden, category, descr
 	elif hidden == 'v':
 		fullHidden = 'Visible to all.'
 
-	fullCategory = NULL
+	fullCategory = None
 	if category == 'p':
 		fullCategory = 'Penetration'
 	elif category == 'k':
@@ -91,26 +102,26 @@ def new_challenge(id, challenge_name, difficulty, state, hidden, category, descr
 	elif category == 'r':
 		fullCategory = 'Riddle'
 		
-    	logger.info("New-Challenge [Name: %s] [Difficulty: %d] [Hidden: %s] [Category: %s] [Description: %s]"
+    	logger.info("New-Challenge [Name: %s] [Difficulty: %s] [Hidden: %s] [Category: %s] [Description: %s]"
                 	% (challenge_name, difficulty, fullHidden, fullCategory, description))
 
 
-def update_challenge(id, winner, points):
+def update_challenge(c_id, winner, points):
     '''
     Declare a winner for an existing challenge.
     '''
     rows = query('''select * from scores.challenges where id = %s''',
-                 (id,))
+                 (c_id,))
     assert rows, 'No open challenges'
-    id, challenge_name, difficulty, state, hidden, category, description, blue_points, red_points = rows[0]
+    c_id, challenge_name, difficulty, state, hidden, category, description, blue_points, red_points = rows[0]
     assert state is not 'x', 'Challenge already closed'
     add_event(winner, challenge_name, points, 'Challenge Won!')
     add_announcement('%s wins %s challenge!' % (winner, challenge_name))
     query('''update scores.challenges set %s_points = %d
                                        where id = %s''', 
-          (winner, points, id))
+          (winner, points, c_id))
     query('''update scores.teams set challenges_won = challenges_won + 1
                                   where team_name = %s''',
           (winner,))
     logger.info("Challenge-Updated: [id: %s] [name: %s] [winner: %s]"
-                % (id, challenge_name, winner))
+                % (c_id, challenge_name, winner))

@@ -26,6 +26,7 @@ CREATE TABLE scores.challenges
 	hidden TEXT,
 	category TEXT,
 	description VARCHAR(200),
+	points_possible INT,
 	blue_points INT,
 	red_points INT,
 	PRIMARY KEY (id));       
