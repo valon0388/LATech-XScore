@@ -104,8 +104,8 @@
 	    <fieldset>
 		<label for="teamName">Team Name</label><br />
 		<select style="background:#000000; color: #008B00" name="teamName">
-		    <option>Bruce Lee</option>
-		    <option>Chuck Norris</option>
+		    <option>Jedi</option>
+		    <option>Sith</option>
 		</select><br />
 		<label for="points">Points</label><br />
 		<input type="number" style="background:#000000; color: #008B00" name="points" id="scores-points" value="" /><br />
@@ -134,33 +134,33 @@
 			<input style="background:#000000; color: #008B00" name="challengeName" id="new-challenge-name" value="" /><br />
 			<label for="points">Points</label><br />
 			<input style="background:#000000; color: #008B00" type="number" name="points" id="new-challenge-points" value="" /><br />
-			<label for="message">Announcement</label><br />
+			<label for="message">Description/Announcement</label><br />
 			<textarea bordercolor = green style="background:#000000; color: #008B00" rows="3" cols="23" name="message" id="new-challenge-message"></textarea><br />
 			<label for="difficulty">Difficulty</label><br/>
 			<select style="background:#000000; color: #008B00" name="difficulty">
-			    <option>1</option>
-			    <option>2</option>
-			    <option>3</option>
-			    <option>4</option>
-			    <option>5</option>
-			    <option>6</option>
-			    <option>7</option>
-			    <option>8</option>
-			    <option>9</option>
-			    <option>10</option>
+			    <option value=1>1</option>
+			    <option value=2>2</option>
+			    <option value=3>3</option>
+			    <option value=4>4</option>
+			    <option value=5>5</option>
+			    <option value=6>6</option>
+			    <option value=7>7</option>
+			    <option value=8>8</option>
+			    <option value=9>9</option>
+			    <option value=10>10</option>
 			</select><br />
-			<label for="visibility">visibility</label><br/>
+			<label for="visibility">Visibility</label><br/>
 			<select style="background:#000000; color: #008B00" name="visibility">
 			    <option value="h">Hidden from all</option>
 			    <option value="t">Hidden from teams</option>
 			    <option value="v">Visible to everyone</option>
 			</select><br />
-			<label for="category">category</label><br/>
+			<label for="category">Category</label><br/>
 			<select style="background:#000000; color: #008B00" name="category">
 			    <option value="p">KOTH</option>
 			    <option value="k">Penetration</option>
-			    <option value="s">scavenger</option>
-			    <option value="r">riddle</option>
+			    <option value="s">Scavenger</option>
+			    <option value="r">Riddle</option>
 			</select><br />
 			<input style="background:#000000; color: #008B00" type="hidden" name="type" value="newchallenge" />
 			<button id="new-challenge-button">Start Challenge</button>
@@ -229,7 +229,10 @@ Enables user to create a new challenge and inform the teams and audience of the 
 1) Enter name of challenge.<br/>
 2) Enter point amount: integer only for positive points or negative (-) sign before for negative points.<br/>
 3) Enter message to be recorded in database and displayed on scoring front-end.<br/>
-4) Press 'Start Challenge' button to submit to database.<br/></p>
+4) Select the desired difficulty level of the challenge, 1-10 where 1 is easiest and 10 is hardest.<br/>
+5) Select the visibility for the challenge.<br/>
+6) Select the category for the challenge.<br/>
+7) Press 'Start Challenge' button to submit to database.<br/></p>
 
 <h4>Close Tab</h4>
 

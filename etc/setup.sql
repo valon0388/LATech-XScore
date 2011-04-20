@@ -26,6 +26,7 @@ CREATE TABLE scores.challenges
 	hidden TEXT,
 	category TEXT,
 	description VARCHAR(200),
+	points_possible INT,
 	blue_points INT,
 	red_points INT,
 	PRIMARY KEY (id));       
@@ -37,6 +38,6 @@ CREATE TABLE scores.announcements
        stop_after INT,
        PRIMARY KEY (id));
 
-INSERT INTO scores.teams SET color='Blue', team_name='Bruce Lee';
-INSERT INTO scores.teams SET color='Red', team_name='Chuck Norris';
-INSERT INTO scores.teams SET color='White', team_name='Steven Seagal';
+INSERT INTO scores.teams SET color='Blue', team_name='Jedi';
+INSERT INTO scores.teams SET color='Red', team_name='Sith';
+INSERT INTO scores.teams SET color='White', team_name='The Force';
