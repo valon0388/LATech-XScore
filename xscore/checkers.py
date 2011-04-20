@@ -105,7 +105,7 @@ class Service(object):
         Returns 'UP', 'DOWN', or 'HACKED'
         '''
         owner = self.team
-        hackers = [t['name'] for t in config.teams] # Get the names for each team in config.py
+        hackers = [t['color'] for t in config.teams] # Get the names for each team in config.py
         hackers.remove(owner) 
         regexp = lambda s: re.sub(r'\W|_', r'.?', s) # recognizes regular expressions
         motd = self.get()	# Gets the status of whatever service is being checked
