@@ -1,4 +1,4 @@
-
+()
 DROP DATABASE IF EXISTS scores;
 CREATE DATABASE scores;
 

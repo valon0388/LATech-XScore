@@ -8,7 +8,7 @@ export XSCORE_LOG="$PWD/xscore.log"
 
 XSCORE_CHECK="$PWD/scripts/xscore-check"
 
-xscore-start() {
+xscore-scoring() {
     check_env
     # Kill self on SIGINT to child
     trap 'trap 2 ; kill -2 $$' 1 2 3 13 15
@@ -19,6 +19,27 @@ xscore-start() {
 	for service in HTTP FTP SSH MySQL; do
 	    echo "==================== $service ========================"
 	    $XSCORE_CHECK $@ $service koth  || exit $?
+	    echo "==================== end $service ===================="
+	    echo
+	done
+	echo "xscored: Stopped:" `date`
+    done
+}
+
+xscore-startall() {
+    check_env
+    echo "xscored: Starting server at http://localhost:$PORT"
+	pkill -9 twistd
+    twistd -n web --path "$WWW_DIR" --port $PORT > weblog.log || exit $? &
+    # Kill self on SIGINT to child
+    trap 'trap 2 ; kill -2 $$' 1 2 3 13 15
+
+    echo '================== XScore Starting ===================='
+    echo "xscored: Starting at" `date` && echo
+    while true; do
+	for service in HTTP FTP SSH MySQL; do
+	    echo "==================== $service ========================"
+	    $XSCORE_CHECK $service koth  || exit $?
 	    echo "==================== end $service ===================="
 	    echo
 	done
@@ -84,8 +105,8 @@ case $cmd in
     config)
 	xscore-config $@
 	;; 
-    start)
-	xscore-start $@
+    scoring)
+	xscore-scoring $@
 	;;
 	startall)
 	xscore-startall $@
@@ -105,8 +126,12 @@ xscored v0.1 -- interface to the XScore scoring server
 Usage: xscored COMMAND
 
 Commands:
-
- start [WAIT_TIME [TIMEOUT]]
+ startall [WAIT_TIME [TIMEOUT]] [TWISTD-ARGUMENTS]
+	Starts the scoring server and a \'twistd' web server(outputs to weblog.log) 
+	to host the visual frontend. 
+	This command passes no additional arguments to the web or scoring servers.
+ 
+ scoring [WAIT_TIME [TIMEOUT]]
     Start the scoring server.  \`WAIT_TIME' is the time to wait 
     between checking each service [default 5].  \`TIMEOUT' is the max
     time to spend on checking a service.
@@ -126,7 +151,7 @@ EOF
     *)
 	cat <<EOF 1>&2
 xscored: error: unknown argument \`$cmd'
-Usage: xscored {start|web|clear|test}
+Usage: xscored {startall|scoring|web|clear|test}
 EOF
 	exit 1
 	;;
