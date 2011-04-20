@@ -91,7 +91,7 @@ teams = (
     ####################### Red Team #######################
     {
         'color': 'Red',
-        'name': 'Chuck Norris',
+        'name': 'Sith',
 
         'subnet': '10.0.1.0/24',
         'netmask': '255.255.255.0',
@@ -137,7 +137,7 @@ teams = (
     ###################### Blue Team #######################
     {
         'color': 'Blue',
-        'name': 'Bruce Lee',
+        'name': 'Jedi',
 
         'subnet': '10.0.2.0/24',
         'netmask': '255.255.255.0',

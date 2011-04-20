@@ -11,7 +11,7 @@ from xscore import scores
 tables = {
     'teams': ('Team', 'Color', 'Score', 'Challenges Won'),
     'events':  ('ID', 'Team', 'Type', 'Points', 'Message', 'Time'),
-    'challenges': ('ID', 'Name', 'Winner', 'Points', 'Message', 'Start Time'),
+    'challenges': ('ID', 'Name', 'Difficulty', 'State', 'Hidden', 'Category', 'Description', 'Points Possible', 'Blue Points', 'Red Points'),
     'announcements': ('ID', 'Message', 'Time', 'Display Time'),
     }
 
@@ -24,7 +24,7 @@ for arg in sys.argv[1:]:
     if arg == 'events':
         rows = scores.query('select * from scores.' + arg + ' order by id desc limit 1000')
     elif arg == 'challenges':
-	rows = scores.query('select * from scores.' + arg + ' where state = "a"')
+	rows = scores.query('select * from scores.' + arg + ' where state = "a" OR state = "r" OR state = "b"')
     else:
         rows = scores.query('select * from scores.' + arg)
 

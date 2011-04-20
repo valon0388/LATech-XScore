@@ -12,6 +12,7 @@ from xscore import scores
 form = cgi.FieldStorage()
 try:
     action = form['type'].value
+    
     if action == 'scoringevent':    
         team = form['teamName'].value
         etype = form['eventType'].value
@@ -30,11 +31,11 @@ try:
         difficulty = form['difficulty'].value
         hidden = form['visibility'].value
         category = form['category'].value
-        points = int(form['points'].value)#do we even need this anymore??
+        points = int(form['points'].value)
         message = form['message'].value
         state = 'a'
         c_id = 0
-        scores.new_challenge(c_id, ch_name, difficulty, state, hidden, category, message) #######
+        scores.new_challenge(c_id, ch_name, difficulty, state, hidden, category, message, points) #######
         print 'Challenge Started!'
         
     elif action == 'Updatechallenge':

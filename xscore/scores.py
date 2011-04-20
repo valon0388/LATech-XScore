@@ -61,7 +61,7 @@ def add_event(team, etype, pts, msg):
                     % (etype, team, pts, msg))
 
 
-def new_challenge(c_id, challenge_name, difficulty, state, hidden, category, description ):
+def new_challenge(c_id, challenge_name, difficulty, state, hidden, category, description, points ):
 	'''
 	Create a new challenge.
     	''' # We should calculate scores now instead of having the points sent to us.
@@ -80,8 +80,8 @@ def new_challenge(c_id, challenge_name, difficulty, state, hidden, category, des
 		else :
 			c_id = int(ids[0][0]) + 1
 #		print c_id
-    	query('''INSERT INTO scores.challenges SET id = %s, challenge_name = %s, difficulty = %s, state = %s, hidden = %s, category = %s, description = %s''', 
-          (c_id, challenge_name, difficulty, state, hidden, category, description))
+    	query('''INSERT INTO scores.challenges SET id = %s, challenge_name = %s, difficulty = %s, state = %s, hidden = %s, category = %s, description = %s, points_possible = %s''', 
+          (c_id, challenge_name, difficulty, state, hidden, category, description, points))
 	print "After query."
     	add_announcement(description)
 	fullHidden = None
@@ -105,23 +105,47 @@ def new_challenge(c_id, challenge_name, difficulty, state, hidden, category, des
     	logger.info("New-Challenge [Name: %s] [Difficulty: %s] [Hidden: %s] [Category: %s] [Description: %s]"
                 	% (challenge_name, difficulty, fullHidden, fullCategory, description))
 
+<<<<<<< HEAD
 
 def update_challenge(c_id, winner, points):
+=======
+#syntax error ''Jedi'_points = 4000\n where id = 1' at line 1").
+def update_challenge(c_id, winner):
+>>>>>>> ed584abbec9daa328e4f28514a7534c9b8a76365
     '''
     Declare a winner for an existing challenge.
     '''
     rows = query('''select * from scores.challenges where id = %s''',
                  (c_id,))
     assert rows, 'No open challenges'
+<<<<<<< HEAD
     c_id, challenge_name, difficulty, state, hidden, category, description, blue_points, red_points = rows[0]
+=======
+    c_id, challenge_name, difficulty, state, hidden, category, description, points_possible, blue_points, red_points = rows[0]
+>>>>>>> ed584abbec9daa328e4f28514a7534c9b8a76365
     assert state is not 'x', 'Challenge already closed'
-    add_event(winner, challenge_name, points, 'Challenge Won!')
+    add_event(winner, challenge_name, points_possible, 'Challenge Won!')
     add_announcement('%s wins %s challenge!' % (winner, challenge_name))
-    query('''update scores.challenges set %s_points = %d
+    
+    if winner == "Jedi":
+      query('''update scores.challenges set blue_points = %s
                                        where id = %s''', 
+          (points_possible, c_id))
+    else:
+      query('''update scores.challenges set red_points = %s
+                                       where id = %s''', 
+<<<<<<< HEAD
           (winner, points, c_id))
     query('''update scores.teams set challenges_won = challenges_won + 1
                                   where team_name = %s''',
+=======
+          (points_possible, c_id))
+      
+    
+    query('''update scores.teams set challenges_won = challenges_won + 1 where team_name = %s''',
+>>>>>>> ed584abbec9daa328e4f28514a7534c9b8a76365
           (winner,))
+    query('''update scores.challenges set state='x' where challenge_name=%s AND id=%s''',
+          (challenge_name,c_id))
     logger.info("Challenge-Updated: [id: %s] [name: %s] [winner: %s]"
                 % (c_id, challenge_name, winner))
