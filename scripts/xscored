@@ -2,6 +2,15 @@
 
 WWW_DIR=www
 PORT=1337
+CHECK_BBX=true
+
+if [ $CHECK_BBX == false ]
+then
+	BBX=""
+else
+	BBX=BBX
+fi
+
 
 export PYTHONPATH="$PWD:$PYTHONPATH"
 export XSCORE_LOG="$PWD/xscore.log"
@@ -16,9 +25,9 @@ xscore-scoring() {
     echo '================== XScore Starting ===================='
     echo "xscored: Starting at" `date` && echo
     while true; do
-	for service in HTTP FTP SSH MySQL; do
+	for service in HTTP FTP SSH MySQL $BBX; do
 	    echo "==================== $service ========================"
-	    $XSCORE_CHECK $@ $service koth  || exit $?
+	    $XSCORE_CHECK $@ $service  || exit $?
 	    echo "==================== end $service ===================="
 	    echo
 	done
@@ -37,9 +46,9 @@ xscore-startall() {
     echo '================== XScore Starting ===================='
     echo "xscored: Starting at" `date` && echo
     while true; do
-	for service in HTTP FTP SSH MySQL; do
+	for service in HTTP FTP SSH MySQL $BBX; do
 	    echo "==================== $service ========================"
-	    $XSCORE_CHECK $service koth  || exit $?
+	    $XSCORE_CHECK $service  || exit $?
 	    echo "==================== end $service ===================="
 	    echo
 	done

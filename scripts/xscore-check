@@ -8,7 +8,7 @@
      HTTP
      MySQL
      SSH
-     KOTH
+     BBX
 
  Multiple SERVICE arguments can be specified to include different service 
  types in the same batch.
@@ -51,14 +51,14 @@ def main():
     to_check = []
     for service in args:
         for team in config.teams:
-            if service == 'KOTH':
-                servs = config.koth_nodes
-            else:
+#            if service == 'KOTH':
+#                servs = config.koth_nodes
+#            else:
                 try:
                     servs = team[service]
                 except KeyError:
                     parser.error("unrecognized service: `%s'" % service)
-            to_check.extend([team['name'], team['color'], service] + list(s) for s in servs)
+            	to_check.extend([team['name'], team['color'], service] + list(s) for s in servs)
 
     random.shuffle(to_check)
     if opts.list:

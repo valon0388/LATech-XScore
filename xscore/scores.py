@@ -83,7 +83,10 @@ def new_challenge(c_id, challenge_name, difficulty, state, hidden, category, des
     	query('''INSERT INTO scores.challenges SET id = %s, challenge_name = %s, difficulty = %s, state = %s, hidden = %s, category = %s, description = %s, points_possible = %s''', 
           (c_id, challenge_name, difficulty, state, hidden, category, description, points))
 
-    	add_announcement(description)
+    	if (hidden != 'h'):
+		if (hidden != 't'):
+			add_announcement(description)
+
 	fullHidden = None
 	if hidden == 'h':
 		fullHidden = 'Hidden from all.'
@@ -108,7 +111,7 @@ def new_challenge(c_id, challenge_name, difficulty, state, hidden, category, des
 #syntax error ''Jedi'_points = 4000\n where id = 1' at line 1").
 def update_challenge(c_id, winner):
     '''
-    Declare a winner for an existing challenge.
+    Updates an existing challenge.
     '''
     rows = query('''select * from scores.challenges where id = %s''',
                  (c_id,))

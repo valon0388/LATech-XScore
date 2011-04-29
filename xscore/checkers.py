@@ -63,7 +63,7 @@ class Service(object):
     '''
     timeout = 5
 
-    def __init__(self, team, color, ip, port, usr=None, passwd=None, timeout=30, koth=False):
+    def __init__(self, team, color, ip, port, usr=None, passwd=None, timeout=30):
         '''
         Create a new Service instance.
         
@@ -79,7 +79,6 @@ class Service(object):
         self.usr = usr
         self.passwd = passwd
         self.timeout = timeout
-        self.koth = koth
 
 
     def check(self):
@@ -139,8 +138,8 @@ class Service(object):
         keys = {'service': self.__class__.__name__, 'hacker': '', 
                 'status': '?', 'reason': ''} # (HTTP, Bruce Lee, UP, found team name in motd)
         keys.update(self.__dict__)
-        if self.koth:
-            keys['service'] = 'KOTH'
+        #if self.koth:
+        #    keys['service'] = 'KOTH'
         if not fmt:
             fmt = config.messages[self.status] #If there is no fmt, then use the message from config.py
         return fmt % keys
@@ -163,45 +162,52 @@ class HTTP(Service):
 
 
 class SSH(Service):
-    '''
-    SSH Service class
-    '''   
-    def get(self):
-        '''Attempt a SSH connection to ip and return MOTD from server.'''
-        ssh = paramiko.SSHClient()
-        try:           
-            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            try:
-                ssh.connect(self.ip, port=self.port, username=self.usr, password=self.passwd)
-            except Exception, e:  # attempt to ssh into the Service with given info
-                #print e
-                return self.get2() # If that doesn't work try this.
-            channel = ssh.invoke_shell()
-            channel.setblocking(1)
-            fn = channel.makefile()
-            channel.sendall('exit #SENTINEL\r\n')
-            motd = fn.read() # read the motd
-            fn.close(); channel.close()    
-            # Return everything before the prompt
-            regexp = '^.*?exit #SENTINEL\r\n'
-            m = re.search(regexp, motd, re.M) # look for the team name
-            if not m: return motd
-            return motd[:m.start()]
-        finally:
-            ssh.close()
+	'''
+	SSH Service class
+	'''
+	def get(self):
+		'''Attempt a SSH connection to ip and return MOTD from server.'''
+		ssh = paramiko.SSHClient()
+		try:
+			ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+		except:
+			pass
+		try:
+			ssh.connect(self.ip, port=self.port, username=self.usr, password=self.passwd)
+		except Exception, e:  # attempt to ssh into the Service with given info
+			print e
+			return self.get2() # If that doesn't work try thisself.
+		except paramiko.AuthenticationException:
+			return self.get2()
+		except socket.error, e:
+			return self.get2()
+		except:
+			return self.get2()
+		channel = ssh.invoke_shell()
+		channel.setblocking(1)
+		fn = channel.makefile()
+		channel.sendall('exit #SENTINEL\r\n')
+		motd = fn.read() # read the motd
+		fn.close(); channel.close()    
+		# Return everything before the prompt
+		regexp = '^.*?exit #SENTINEL\r\n'
+		m = re.search(regexp, motd, re.M) # look for the team name
+		if not m: return motd
+		return motd[:m.start()]
+		ssh.close()
 
-    def get2(self):
-        # Work around to ignore timeout that's already going
-        def get3():
-            x = pexpect.spawn("ssh -p %s %s@%s" % (self.port, self.usr, self.ip))
-            try:
-                x.expect("[pP]assword: ")
-                x.sendline(self.passwd)
-                x.expect("[$#] ")
-                return x.before
-            finally:
-                x.close()
-        return timeout(self.timeout, get3)
+	def get2(self):
+		# Work around to ignore timeout that's already going
+		def get3():
+			x = pexpect.spawn("ssh -p %s %s@%s" % (self.port, self.usr, self.ip))
+			try:
+				x.expect("[pP]assword: ")
+				x.sendline(self.passwd)
+				x.expect("[$#] ")
+				return x.before
+			finally:
+				x.close()
+			return timeout(self.timeout, get3)
     
 
 class FTP(Service):
@@ -233,24 +239,49 @@ class MYSQL(Service):
         con.close()
         return '\n'.join(r[0] for r in rows)
 
+class BBX(Service):
+	'''
+	BBX Service class
+	'''
+	def get(self):
+		'''Attempt to connect to each service and check all for the Blackbox.'''
+		if (port == 80):
+			HTTP(team, color, ip, port, usr, passwd, timeout)
+		elif (port == 22):
+			FTP(team, color, ip, port, usr, passwd, timeout)
+		elif (port == 21):
+			SSH(team, color, ip, port, usr, passwd, timeout)
+		elif (port == 3306):
+			MYSQL(team, color, ip, port, usr, passwd, timeout)
+
 
 def check(team, color, service, ip, port, usr='', passwd='', timeout=30):
-    '''Checks the status of a service and appropriates points accordingly.'''
-    if os.fork() != 0:
-        return
-    koth = service == 'KOTH'
-    if koth:
-        klass = FTP
-    else:
-        klass = eval(service.upper())
-    checker = klass(team, color, ip, port, usr, passwd, timeout, koth)
+	'''Checks the status of a service and appropriates points accordingly.'''
+	if os.fork() != 0:
+		return
+#    koth = service == 'KOTH'
+#    if koth:
+#        klass = FTP
+#    else:
+    	klass = eval(service.upper())
+    	checker = klass(team, color, ip, port, usr, passwd, timeout)
 
-    logger.info('Checking...  %s' % checker)
-    stat, msg = checker.check()
-    logger.info('Checked      %s' % checker)
+    	logger.info('Checking...  %s' % checker)
+    	stat, msg = checker.check()
+    	logger.info('Checked      %s' % checker)
     
-    if not koth or stat == 'UP':
-        event_type = "%s-%s" % (service.upper(), stat)
-        points = config.points[event_type]
-        scores.add_event(team, event_type, points, msg)
-    sys.exit()
+	if not stat == 'UP':
+		if ((ip == '10.0.1.14') or (ip == '10.0.2.14')):
+			if(port == 80):
+				event_type = "%s-HTTP-%s" % (service.upper(), stat)
+			elif(port == 22):
+				event_type = "%s-FTP-%s" % (service.upper(), stat)
+			elif(port == 21):
+				event_type = "%s-SSH-%s" % (service.upper(), stat)
+			elif(port == 3306):
+				event_type = "%s-MYSQL-%s" % (service.upper(), stat)
+		else:
+			event_type = "%s-%s" % (service.upper(), stat)
+	points = config.points[event_type]
+	scores.add_event(team, event_type, points, msg)
+	sys.exit()
