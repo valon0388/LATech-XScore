@@ -58,7 +58,7 @@ def main():
                     servs = team[service]
                 except KeyError:
                     parser.error("unrecognized service: `%s'" % service)
-            to_check.extend([team['name'], service] + list(s) for s in servs)
+            to_check.extend([team['name'], team['color'], service] + list(s) for s in servs)
 
     random.shuffle(to_check)
     if opts.list:

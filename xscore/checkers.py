@@ -63,7 +63,7 @@ class Service(object):
     '''
     timeout = 5
 
-    def __init__(self, team, ip, port, usr=None, passwd=None, timeout=30, koth=False):
+    def __init__(self, team, color, ip, port, usr=None, passwd=None, timeout=30, koth=False):
         '''
         Create a new Service instance.
         
@@ -73,6 +73,7 @@ class Service(object):
         -passwd  Optional password for `usr'
         '''
         self.team = team
+	self.color = color
         self.ip = ip
         self.port = port
         self.usr = usr
@@ -104,12 +105,12 @@ class Service(object):
         
         Returns 'UP', 'DOWN', or 'HACKED'
         '''
-        owner = self.team
+        owner = self.color
         hackers = [t['color'] for t in config.teams] # Get the names for each team in config.py
         hackers.remove(owner) 
         regexp = lambda s: re.sub(r'\W|_', r'.?', s) # recognizes regular expressions
         motd = self.get()	# Gets the status of whatever service is being checked
-        if re.search(regexp(owner), motd, re.I): # Search for the motd using regular expressions
+        if re.search(regexp(owner), motd, re.I): # Search the motd using regular expressions
             return 'UP'
         for i, hacker in enumerate(hackers): # Using regex search for other teams names in the motd.
             m = re.search(regexp(hacker), motd, re.I) # true if found false if not found
@@ -173,7 +174,7 @@ class SSH(Service):
             try:
                 ssh.connect(self.ip, port=self.port, username=self.usr, password=self.passwd)
             except Exception, e:  # attempt to ssh into the Service with given info
-                print e
+                #print e
                 return self.get2() # If that doesn't work try this.
             channel = ssh.invoke_shell()
             channel.setblocking(1)
@@ -233,7 +234,7 @@ class MYSQL(Service):
         return '\n'.join(r[0] for r in rows)
 
 
-def check(team, service, ip, port, usr='', passwd='', timeout=30):
+def check(team, color, service, ip, port, usr='', passwd='', timeout=30):
     '''Checks the status of a service and appropriates points accordingly.'''
     if os.fork() != 0:
         return
@@ -242,7 +243,7 @@ def check(team, service, ip, port, usr='', passwd='', timeout=30):
         klass = FTP
     else:
         klass = eval(service.upper())
-    checker = klass(team, ip, port, usr, passwd, timeout, koth)
+    checker = klass(team, color, ip, port, usr, passwd, timeout, koth)
 
     logger.info('Checking...  %s' % checker)
     stat, msg = checker.check()

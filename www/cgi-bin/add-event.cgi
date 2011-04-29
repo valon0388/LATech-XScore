@@ -41,11 +41,11 @@ try:
     elif action == 'Updatechallenge':
         _id = form['id'].value
         winner = form['winner'].value
-        scores.update_challenge(_id, winner, 5) #######
+        scores.update_challenge(_id, winner) #######
         print 'Challenge Updated!'
     else:
         raise Exception("Unknown request!")
-    sys.exit()-
+    sys.exit()
 except KeyError as e:
     print '''
 <p><blink>Error</blink>  No entry for %s.</p>
