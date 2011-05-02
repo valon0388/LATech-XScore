@@ -92,6 +92,8 @@ points = {
     'BBX-MYSQL-UP': 25,
     'BBX-MYSQL-DOWN': -25,
     'BBX-MYSQL-HACKED':  -30,
+
+	'KOTH-UP': 25
     }
 
 

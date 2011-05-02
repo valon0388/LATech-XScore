@@ -285,3 +285,19 @@ def check(team, color, service, ip, port, usr='', passwd='', timeout=30):
 	points = config.points[event_type]
 	scores.add_event(team, event_type, points, msg)
 	sys.exit()
+
+def checkKOTH(state, ip)
+	logger.info('Checking... %s' % ip)
+	msg = ''
+	team_name = ''
+	if not (state == 'x' || state == 'a'):
+		if state == 'b'
+			team_name = "Jedi"
+		elif state == 'r'
+			team_name = "Sith"	
+		event_type = "KOTH-UP"
+		msg == "KOTH-BOX at %s owned by %s" % (ip ,team_name)
+		
+		points = config.points[event_type]
+		scores.add_event(team_name, event_type, points, msg)
+		sys.exit()

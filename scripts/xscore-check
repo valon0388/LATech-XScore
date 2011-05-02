@@ -50,24 +50,30 @@ def main():
     args = [a.upper() for a in args]
     to_check = []
     for service in args:
-        for team in config.teams:
-#            if service == 'KOTH':
-#                servs = config.koth_nodes
-#            else:
-                try:
-                    servs = team[service]
-                except KeyError:
-                    parser.error("unrecognized service: `%s'" % service)
-            	to_check.extend([team['name'], team['color'], service] + list(s) for s in servs)
+		if not service == 'KOTH':
+	          for team in config.teams:
+                  try:
+                      servs = team[service]
+                  except KeyError:
+                      parser.error("unrecognized service: `%s'" % service)
+            	   to_check.extend([team['name'], team['color'], service] + list(s) for s in servs)
 
-    random.shuffle(to_check)
-    if opts.list:
-        for service in to_check:
-            print '\t'.join(map(str, service))
-        return
-    for service in to_check:
-        checkers.check(*service, timeout=opts.timeout)
-        time.sleep(opts.wait_time)
+    			random.shuffle(to_check)
+    			if opts.list:
+        			for service in to_check:
+            			print '\t'.join(map(str, service))
+        			return
+    			for service in to_check:
+        			checkers.check(*service, timeout=opts.timeout)
+        			time.sleep(opts.wait_time)
+		else:
+			kothBoxes = list(query("""SELECT state, description FROM scores.challenges WHERE category = 'k'"""))
+
+			for box in kothBoxes:
+				ip = box[1].split(':', 1)
+				kothip = ip[0]
+				kothstate = box[0]
+				checkers.checkKOTH(kothstate,kothip)
 
 #    end_time = time.time() + len(to_check) * opts.timeout + 5
     # Wait for the children

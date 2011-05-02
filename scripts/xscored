@@ -21,11 +21,12 @@ xscore-scoring() {
     check_env
     # Kill self on SIGINT to child
     trap 'trap 2 ; kill -2 $$' 1 2 3 13 15
+	ChallengesServer/simpleserver 9988&
 
     echo '================== XScore Starting ===================='
     echo "xscored: Starting at" `date` && echo
     while true; do
-	for service in HTTP FTP SSH MySQL $BBX; do
+	for service in HTTP FTP SSH MySQL $BBX KOTH; do
 	    echo "==================== $service ========================"
 	    $XSCORE_CHECK $@ $service  || exit $?
 	    echo "==================== end $service ===================="
@@ -41,12 +42,13 @@ xscore-startall() {
 	pkill -9 twistd
     twistd -n web --path "$WWW_DIR" --port $PORT > weblog.log || exit $? &
     # Kill self on SIGINT to child
+	ChallengesServer/simpleserver 9988&
     trap 'trap 2 ; kill -2 $$' 1 2 3 13 15
 
     echo '================== XScore Starting ===================='
     echo "xscored: Starting at" `date` && echo
     while true; do
-	for service in HTTP FTP SSH MySQL $BBX; do
+	for service in HTTP FTP SSH MySQL $BBX KOTH; do
 	    echo "==================== $service ========================"
 	    $XSCORE_CHECK $service  || exit $?
 	    echo "==================== end $service ===================="
